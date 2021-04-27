@@ -4,13 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GlobalMembers {
-    /*
-     * animaly_detection_util.cpp
-     *
-     *  Created on: 11 ����� 2020
-     *      Author: Eli
-     */
-
 
     public static float avg(float[] x, int size) {
         float sum = 0F;
@@ -76,7 +69,7 @@ public class GlobalMembers {
     public static float dev(Point p, Point[] points, int size) {
         Line l = linear_reg(points, size);
 
-        return dev(new Point(p), l);
+        return dev(p, l);
     }
 
 // returns the deviation between point p and the line
@@ -102,7 +95,6 @@ public class GlobalMembers {
         float r = dist(a, b) / 2;
         return new Circle(new Point(x, y), r);
     }
-
 
 
     public static Circle from3Points(Point a, Point b, Point c) {
@@ -131,9 +123,8 @@ public class GlobalMembers {
         float x = (-pSlopBC * mBC.x + mBC.y + pSlopAB * mAB.x - mAB.y) / (pSlopAB - pSlopBC);
         float y = pSlopAB * (x - mAB.x) + mAB.y;
         Point center = new Point(x, y);
-//C++ TO JAVA CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-//ORIGINAL LINE: float R=dist(center,a);
-        float R = dist(new Point(center), new Point(a));
+
+        float R = dist(center, a);
 
         return new Circle(center, R);
     }
@@ -150,29 +141,26 @@ public class GlobalMembers {
         // maybe 2 of the points define a small circle that contains the 3ed point
         Circle c = from2points(P.get(0), P.get(1));
 
-        if (dist(P.get(2), c.center) <= c.radius) {
+        if (dist(P.get(2), c.getCenter()) <= c.getRadius()) {
             return c;
         }
 
         c = from2points(P.get(0), P.get(2));
 
-        if (dist(P.get(1), c.center) <= c.radius) {
+        if (dist(P.get(1), c.getCenter()) <= c.getRadius()) {
 
             return c;
         }
 
         c = from2points(P.get(1), P.get(2));
-//C++ TO JAVA CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-//ORIGINAL LINE: if(dist(P[0],c.center)<=c.radius)
-        if (dist(P.get(0), new Point(c.center)) <= c.radius) {
-//C++ TO JAVA CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-//ORIGINAL LINE: return c;
-            return new Circle(c);
+
+        if (dist(P.get(0), c.getCenter()) <= c.getRadius()) {
+
+            return c;
         }
         // else find the unique circle from 3 points
-//C++ TO JAVA CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-//ORIGINAL LINE: return from3Points(P[0],P[1],P[2]);
-        return new Circle(from3Points(P.get(0), P.get(1), P.get(2)));
+
+        return from3Points(P.get(0), P.get(1), P.get(2));
     }
 
 /*
@@ -193,43 +181,33 @@ algorithm welzl
 
     public static Circle welzl(Point[] P, ArrayList<Point> R, int n) {
         if (n == 0 || R.size() == 3) {
-//C++ TO JAVA CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-//ORIGINAL LINE: return trivial(R);
-            return new Circle(trivial(R));
+
+            return trivial(R);
         }
 
-        // remove random point p
-        // swap is more efficient than remove
-        //srand (time(NULL));
-        Random random=new Random();
+        Random random = new Random();
         int i = random.nextInt(n);
         Point p = new Point(P[i].x, P[i].y);
-        //swap(P[i],P[n - 1]);
         Point temp = P[i];
         P[i] = P[n - 1];
         P[n - 1] = temp;
 
         Circle c = welzl(P, new ArrayList<Point>(R), n - 1);
 
-//C++ TO JAVA CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-//ORIGINAL LINE: if(dist(p,c.center)<=c.radius)
-        if (dist(new Point(p), new Point(c.center)) <= c.radius) {
-//C++ TO JAVA CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-//ORIGINAL LINE: return c;
-            return new Circle(c);
+
+        if (dist(p, c.getCenter()) <= c.getRadius()) {
+
+            return c;
         }
 
         R.add(p);
 
-//C++ TO JAVA CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-//ORIGINAL LINE: return welzl(P,R,n-1);
-        return new Circle(welzl(P, new ArrayList<Point>(R), n - 1));
+        return welzl(P, new ArrayList<Point>(R), n - 1);
     }
 
     public static Circle findMinCircle(Point[] points, int size) {
-//C++ TO JAVA CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-//ORIGINAL LINE: return welzl(points,{},size);
-        return new Circle(welzl(points, new ArrayList<Point>(), size));
+
+        return welzl(points, new ArrayList<Point>(), size);
     }
 
 

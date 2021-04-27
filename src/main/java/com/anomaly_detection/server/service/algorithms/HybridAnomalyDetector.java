@@ -2,32 +2,22 @@ package com.anomaly_detection.server.service.algorithms;
 
 public class HybridAnomalyDetector extends SimpleAnomalyDetector
 {
-	public HybridAnomalyDetector()
-	{
-		// TODO Auto-generated constructor stub
 
-	}
-
-	public void close()
-	{
-		// TODO Auto-generated destructor stub
-		super.close();
-	}
 
 	@Override
-	public void learnHelper(final TimeSeries ts, float p, String f1, String f2, Point[] ps)
+	public void learnHelper(final TimeSeries ts, float p, int f1, int f2, Point[] ps)
 	{
 		super.learnHelper(ts, p, f1, f2, ps);
 		if (p > 0.5F && p < threshold)
 		{
-			Circle cl = GlobalMembers.findMinCircle(ps,ts.getRowSize());
+			Circle cl = GlobalMembers.findMinCircle(ps,ts.getTs().get(0).size());
 			correlatedFeatures c = new correlatedFeatures();
 			c.feature1 = f1;
 			c.feature2 = f2;
 			c.correlation = p;
-			c.threshold = (float) (cl.radius * 1.1); // 10% increase
-			c.cx = cl.center.x;
-			c.cy = cl.center.y;
+			c.threshold = (float) (cl.getRadius() * 1.1); // 10% increase
+			c.cx = cl.getCenter().x;
+			c.cy = cl.getCenter().y;
 			cf.add(c);
 		}
 	}

@@ -7,15 +7,21 @@ package com.anomaly_detection.server.service.algorithms;// ------------ DO NOT C
 
 public class Circle
 {
-	public Point center = new Point(0,0);
-	public float radius;
+	private Point center;
+
+	public Point getCenter() {
+		return center;
+	}
+
+	public float getRadius() {
+		return radius;
+	}
+
+	private float radius;
 	public Circle(Point c, float r)
 	{
-		this.center = new Point(c);
+		this.center = c;
 		this.radius = r;
 	}
-	public Circle(Circle circle){
-		this.center=new Point(circle.center);
-		this.radius=circle.radius;
-	}
+
 }

@@ -21,4 +21,16 @@ class SimpleAnomalyDetectorTest {
         assert r.size()==369;
         assert s.detect(new TimeSeries("src/test/java/com/anomaly_detection/server/service/algorithms/reg_flight.csv")).size()==0;
     }
+    @Test
+    void learnNormal2() throws IOException {
+        HybridAnomalyDetector s=new HybridAnomalyDetector();
+        s.learnNormal(new TimeSeries("src/test/java/com/anomaly_detection/server/service/algorithms/reg_flight.csv"));
+        System.out.println(s.cf.size());
+        assert s.cf.size()==24;
+        TimeSeries t=new TimeSeries("src/test/java/com/anomaly_detection/server/service/algorithms/anomaly_flight.csv");
+        List<AnomalyReport> r= s.detect(t);
+        System.out.println(r.size());
+        assert r.size()==369;
+        assert s.detect(new TimeSeries("src/test/java/com/anomaly_detection/server/service/algorithms/reg_flight.csv")).size()==0;
+    }
 }
