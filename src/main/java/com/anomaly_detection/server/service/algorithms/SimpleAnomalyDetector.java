@@ -23,8 +23,7 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
         }
 
         for (int i = 0; i < ts.getTs().size(); i++) {
-            //String f1 = attributes.get(i);
-            int f1=i;
+            int f1 = i;
             float max = 0F;
             int jmax = 0;
             for (int j = i + 1; j < ts.getTs().size(); j++) {
@@ -35,36 +34,12 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
                 }
             }
             Point[] ps = toPoints(ts.getTs().get(f1), ts.getTs().get(jmax));
-
             learnHelper(ts, max, f1, jmax, ps);
-
-            // delete points
-            for (int k = 0; k < len; k++) {
-                ps[k] = null;
-            }
-            ps = null;
         }
     }
 
     @Override
     public ArrayList<AnomalyReport> detect(final TimeSeries ts) {
-		/*ArrayList<AnomalyReport> v = new ArrayList<AnomalyReport>();
-//C++ TO JAVA CONVERTER TODO TASK: Only lambda expressions having all locals passed by reference can be converted to Java:
-//ORIGINAL LINE: for_each(cf.begin(),cf.end(),[&v,&ts,this](correlatedFeatures c)
-		for_each(cf.iterator(),cf.end(),(correlatedFeatures c) ->
-		{
-			ArrayList<Float> x = ts.getAttributeData(c.feature1);
-			ArrayList<Float> y = ts.getAttributeData(c.feature2);
-			for (int i = 0;i < x.size();i++)
-			{
-				if (isAnomalous(x.get(i), y.get(i), new correlatedFeatures(c)))
-				{
-					String d = c.feature1 + "-" + c.feature2;
-					v.add(new AnomalyReport(d, (i + 1)));
-				}
-			}
-		});
-		return new ArrayList<AnomalyReport>(v);*/
         ArrayList<AnomalyReport> v = new ArrayList<AnomalyReport>();
         for (correlatedFeatures c : cf) {
             ArrayList<Float> x = ts.getTs().get(c.feature1);
@@ -96,8 +71,6 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
             c.feature2 = f2;
             c.correlation = p;
             c.lin_reg = MathUtil.linear_reg(ps, len);
-//C++ TO JAVA CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-//ORIGINAL LINE: c.threshold=findThreshold(ps,len,c.lin_reg)*1.1;
             c.threshold = (float) (findThreshold(ps, len, new Line(c.lin_reg)) * 1.1); // 10% increase
             cf.add(c);
         }
