@@ -22,14 +22,6 @@ public class Line
 		return a * x + b;
 	}
 
-//	public static void main(String[] args) throws IOException {
-//		HybridAnomalyDetector s=new HybridAnomalyDetector();
-//		s.learnNormal(new TimeSeries("reg_flight.csv"));
-//		System.out.println(s.cf.size());
-//		List<AnomalyReport> r= s.detect(new TimeSeries("anomaly_flight.csv"));
-//		System.out.println(r.size());
-//
-//	}
 	public Line(Line other){
 		this.a=other.a;
 		this.b=other.b;

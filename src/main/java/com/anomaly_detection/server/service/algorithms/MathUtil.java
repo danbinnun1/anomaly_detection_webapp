@@ -3,7 +3,7 @@ package com.anomaly_detection.server.service.algorithms;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GlobalMembers {
+public class MathUtil {
 
     public static float avg(float[] x, int size) {
         float sum = 0F;
@@ -12,8 +12,6 @@ public class GlobalMembers {
         }
         return sum / size;
     }
-
-// returns the variance of X and Y
 
     // returns the variance of X and Y
     public static float variance(float[] x, int size) {
@@ -25,8 +23,6 @@ public class GlobalMembers {
         return sum / size - av * av;
     }
 
-// returns the covariance of X and Y
-
     // returns the covariance of X and Y
     public static float cov(float[] x, float[] y, int size) {
         float sum = 0F;
@@ -34,64 +30,47 @@ public class GlobalMembers {
             sum += x[i] * y[i];
         }
         sum /= size;
-
         return sum - avg(x, size) * avg(y, size);
     }
-
-// returns the Pearson correlation coefficient of X and Y
-
 
     // returns the Pearson correlation coefficient of X and Y
     public static float pearson(float[] x, float[] y, int size) {
         return (float) (cov(x, y, size) / (Math.sqrt(variance(x, size)) * Math.sqrt(variance(y, size))));
     }
 
-// performs a linear regression and returns the line equation
-
-
     // performs a linear regression and returns the line equation
     public static Line linear_reg(Point[] points, int size) {
         float[] x = new float[size];
         float[] y = new float[size];
         for (int i = 0; i < size; i++) {
-            x[i] = points[i].x;
-            y[i] = points[i].y;
+            x[i] = points[i].getX();
+            y[i] = points[i].getY();
         }
         float a = cov(x, y, size) / variance(x, size);
         float b = avg(y, size) - a * (avg(x, size));
-
         return new Line(a, b);
     }
-
-// returns the deviation between point p and the line equation of the points
 
     // returns the deviation between point p and the line equation of the points
     public static float dev(Point p, Point[] points, int size) {
         Line l = linear_reg(points, size);
-
         return dev(p, l);
     }
 
-// returns the deviation between point p and the line
-
     // returns the deviation between point p and the line
     public static float dev(Point p, Line l) {
-        return Math.abs(p.y - l.f(p.x));
+        return Math.abs(p.getY() - l.f(p.getX()));
     }
 
-
-    // --------------------------------------
-
-
     public static float dist(Point a, Point b) {
-        float x2 = (a.x - b.x) * (a.x - b.x);
-        float y2 = (a.y - b.y) * (a.y - b.y);
+        float x2 = (a.getX() - b.getX()) * (a.getX() - b.getX());
+        float y2 = (a.getY() - b.getY()) * (a.getY() - b.getY());
         return (float) Math.sqrt(x2 + y2);
     }
 
     public static Circle from2points(Point a, Point b) {
-        float x = (a.x + b.x) / 2;
-        float y = (a.y + b.y) / 2;
+        float x = (a.getX() + b.getX()) / 2;
+        float y = (a.getY() + b.getY()) / 2;
         float r = dist(a, b) / 2;
         return new Circle(new Point(x, y), r);
     }
@@ -99,18 +78,16 @@ public class GlobalMembers {
 
     public static Circle from3Points(Point a, Point b, Point c) {
         // find the circumcenter of the triangle a,b,c
-        Point mAB = new Point((a.x + b.x) / 2, (a.y + b.y) / 2); // mid point of line AB
-        float slopAB = (b.y - a.y) / (b.x - a.x); // the slop of AB
+        Point mAB = new Point((a.getX() + b.getX()) / 2, (a.getY() + b.getY()) / 2); // mid point of line AB
+        float slopAB = (b.getY() - a.getY()) / (b.getX() - a.getX()); // the slop of AB
         float pSlopAB = -1 / slopAB; // the perpendicular slop of AB
         // pSlop equation is:
         // y - mAB.y = pSlopAB * (x - mAB.x) ==> y = pSlopAB * (x - mAB.x) + mAB.y
-
-        Point mBC = new Point((b.x + c.x) / 2, (b.y + c.y) / 2); // mid point of line BC
-        float slopBC = (c.y - b.y) / (c.x - b.x); // the slop of BC
+        Point mBC = new Point((b.getX() + c.getX()) / 2, (b.getY() + c.getY()) / 2); // mid point of line BC
+        float slopBC = (c.getY() - b.getY()) / (c.getX() - b.getX()); // the slop of BC
         float pSlopBC = -1 / slopBC; // the perpendicular slop of BC
         // pSlop equation is:
         // y - mBC.y = pSlopBC * (x - mBC.x) ==> y = pSlopBC * (x - mBC.x) + mBC.y
-
 		/*
 		pSlopAB * (x - mAB.x) + mAB.y = pSlopBC * (x - mBC.x) + mBC.y
 		pSlopAB*x - pSlopAB*mAB.x + mAB.y = pSlopBC*x - pSlopBC*mBC.x + mBC.y
@@ -119,13 +96,10 @@ public class GlobalMembers {
 		x = (- pSlopBC*mBC.x + mBC.y + pSlopAB*mAB.x - mAB.y) / (pSlopAB - pSlopBC);
 		
 		*/
-
-        float x = (-pSlopBC * mBC.x + mBC.y + pSlopAB * mAB.x - mAB.y) / (pSlopAB - pSlopBC);
-        float y = pSlopAB * (x - mAB.x) + mAB.y;
+        float x = (-pSlopBC * mBC.getX() + mBC.getY() + pSlopAB * mAB.getX() - mAB.getY()) / (pSlopAB - pSlopBC);
+        float y = pSlopAB * (x - mAB.getX()) + mAB.getY();
         Point center = new Point(x, y);
-
         float R = dist(center, a);
-
         return new Circle(center, R);
     }
 
@@ -137,29 +111,22 @@ public class GlobalMembers {
         } else if (P.size() == 2) {
             return from2points(P.get(0), P.get(1));
         }
-
         // maybe 2 of the points define a small circle that contains the 3ed point
         Circle c = from2points(P.get(0), P.get(1));
-
         if (dist(P.get(2), c.getCenter()) <= c.getRadius()) {
             return c;
         }
-
         c = from2points(P.get(0), P.get(2));
-
         if (dist(P.get(1), c.getCenter()) <= c.getRadius()) {
 
             return c;
         }
-
         c = from2points(P.get(1), P.get(2));
-
         if (dist(P.get(0), c.getCenter()) <= c.getRadius()) {
 
             return c;
         }
         // else find the unique circle from 3 points
-
         return from3Points(P.get(0), P.get(1), P.get(2));
     }
 
@@ -178,37 +145,27 @@ algorithm welzl
     return welzl(P - { p }, R U { p })
  */
 
-
     public static Circle welzl(Point[] P, ArrayList<Point> R, int n) {
         if (n == 0 || R.size() == 3) {
 
             return trivial(R);
         }
-
         Random random = new Random();
         int i = random.nextInt(n);
-        Point p = new Point(P[i].x, P[i].y);
+        Point p = new Point(P[i].getX(), P[i].getY());
         Point temp = P[i];
         P[i] = P[n - 1];
         P[n - 1] = temp;
-
         Circle c = welzl(P, new ArrayList<Point>(R), n - 1);
-
-
         if (dist(p, c.getCenter()) <= c.getRadius()) {
 
             return c;
         }
-
         R.add(p);
-
         return welzl(P, new ArrayList<Point>(R), n - 1);
     }
 
     public static Circle findMinCircle(Point[] points, int size) {
-
         return welzl(points, new ArrayList<Point>(), size);
     }
-
-
 }

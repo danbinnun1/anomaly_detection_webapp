@@ -28,7 +28,7 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
             float max = 0F;
             int jmax = 0;
             for (int j = i + 1; j < ts.getTs().size(); j++) {
-                float p = Math.abs(GlobalMembers.pearson(values[i], values[j], len));
+                float p = Math.abs(MathUtil.pearson(values[i], values[j], len));
                 if (p > max) {
                     max = p;
                     jmax = j;
@@ -95,7 +95,7 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
             c.feature1 = f1;
             c.feature2 = f2;
             c.correlation = p;
-            c.lin_reg = GlobalMembers.linear_reg(ps, len);
+            c.lin_reg = MathUtil.linear_reg(ps, len);
 //C++ TO JAVA CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
 //ORIGINAL LINE: c.threshold=findThreshold(ps,len,c.lin_reg)*1.1;
             c.threshold = (float) (findThreshold(ps, len, new Line(c.lin_reg)) * 1.1); // 10% increase
@@ -118,7 +118,7 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
     protected final float findThreshold(Point[] ps, int len, Line rl) {
         float max = 0F;
         for (int i = 0; i < len; i++) {
-            float d = Math.abs(ps[i].y - rl.f(ps[i].x));
+            float d = Math.abs(ps[i].getY() - rl.f(ps[i].getX()));
             if (d > max) {
                 max = d;
             }
