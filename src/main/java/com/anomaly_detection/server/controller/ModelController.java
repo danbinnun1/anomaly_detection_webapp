@@ -4,10 +4,9 @@ import com.anomaly_detection.server.model.Model;
 import com.anomaly_detection.server.service.ModelService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping(path = "api/model")
@@ -17,5 +16,9 @@ public class ModelController {
     @GetMapping("/{id}")
     public @ResponseBody Model findById(@PathVariable Integer id){
         return modelService.getById(id);
+    }
+    @PostMapping("/{model_type}")
+    public @ResponseBody Model trainModel(@RequestBody Map<String, float[]> data){
+        return null;
     }
 }
