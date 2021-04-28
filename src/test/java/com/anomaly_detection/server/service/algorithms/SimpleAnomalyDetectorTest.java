@@ -18,7 +18,7 @@ class SimpleAnomalyDetectorTest {
         TimeSeries t=new TimeSeries("src/test/java/com/anomaly_detection/server/service/algorithms/anomaly_flight.csv");
         List<AnomalyReport> r= s.detect(t);
         System.out.println(r.size());
-        assert r.size()==369;
+        assert r.size()==367;
         assert s.detect(new TimeSeries("src/test/java/com/anomaly_detection/server/service/algorithms/reg_flight.csv")).size()==0;
     }
     @Test
@@ -30,7 +30,7 @@ class SimpleAnomalyDetectorTest {
         TimeSeries t=new TimeSeries("src/test/java/com/anomaly_detection/server/service/algorithms/anomaly_flight.csv");
         List<AnomalyReport> r= s.detect(t);
         System.out.println(r.size());
-        assert r.size()==369;
+        assert r.size()==367;
         assert s.detect(new TimeSeries("src/test/java/com/anomaly_detection/server/service/algorithms/reg_flight.csv")).size()==0;
     }
 }
