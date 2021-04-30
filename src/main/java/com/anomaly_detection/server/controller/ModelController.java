@@ -1,5 +1,6 @@
 package com.anomaly_detection.server.controller;
 
+import com.anomaly_detection.server.dto.Anomaly;
 import com.anomaly_detection.server.dto.ModelDto;
 import com.anomaly_detection.server.model.Model;
 import com.anomaly_detection.server.service.ModelService;
@@ -27,5 +28,9 @@ public class ModelController {
     ModelDto trainModel(@PathVariable String model_type, @RequestBody Map<String, ArrayList<Float>> data) {
         return modelService.trainModel(data, model_type);
     }
-
+    @PostMapping
+    public @ResponseBody
+    Anomaly detect(@RequestParam String model_id, @RequestBody Map<String, ArrayList<Float>> data){
+        return modelService.detect(data,model_id);
+    }
 }

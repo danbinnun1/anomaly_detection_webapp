@@ -9,6 +9,6 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 public class Anomaly {
-    private Map<String, List<AnomalySpan>> anomalies;
+    private Map<String, List<Span>> anomalies;
     private String reason;
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AnomalySpan {
+public class Span {
     private int start;
     private int end;
 }
