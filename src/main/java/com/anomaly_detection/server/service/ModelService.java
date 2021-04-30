@@ -77,6 +77,8 @@ public class ModelService {
     }
 
     private List<Span> getSpans(List<Integer> integers) {
+        Set<Integer> set=new LinkedHashSet<>(integers);
+        integers=new ArrayList<>(set);
         Collections.sort(integers);
         List<Span> result = new ArrayList<>();
         int lastOfSequence = -1;
@@ -92,6 +94,9 @@ public class ModelService {
                 firstOfSequence = i;
                 lastOfSequence = i;
             }
+        }
+        if (firstOfSequence!=-1){
+            result.add(new Span(firstOfSequence, lastOfSequence + 1));
         }
         return result;
     }
