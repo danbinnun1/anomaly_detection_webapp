@@ -3,6 +3,7 @@ package com.anomaly_detection.server.service;
 import com.anomaly_detection.server.dto.Anomaly;
 import com.anomaly_detection.server.dto.Span;
 import com.anomaly_detection.server.dto.ModelDto;
+import com.anomaly_detection.server.exceptions.ModelNotFound;
 import com.anomaly_detection.server.model.Model;
 import com.anomaly_detection.server.repository.ModelRepository;
 import com.anomaly_detection.server.service.algorithms.*;
@@ -19,9 +20,13 @@ public class ModelService {
     private final ModelRepository modelRepository;
     private ExecutorService executorService = Executors.newFixedThreadPool(20);
 
-    public Model getById(String integer) {
+    public Model getById(String integer) throws ModelNotFound {
         //implement: if model doesn't exist throw exception, catch in controller and return 404
-        return modelRepository.findById(integer).get();
+        Optional<Model> model=modelRepository.findById(integer);
+        if (model.isEmpty()){
+            throw new ModelNotFound();
+        }
+        return model.get();
     }
 
     public void insert(Model model) {

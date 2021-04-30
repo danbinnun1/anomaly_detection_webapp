@@ -2,6 +2,7 @@ package com.anomaly_detection.server.controller;
 
 import com.anomaly_detection.server.dto.Anomaly;
 import com.anomaly_detection.server.dto.ModelDto;
+import com.anomaly_detection.server.exceptions.ModelNotFound;
 import com.anomaly_detection.server.model.Model;
 import com.anomaly_detection.server.service.ModelService;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ public class ModelController {
 
     @GetMapping("/{id}")
     public @ResponseBody
-    Model findById(@PathVariable String id) {
+    Model findById(@PathVariable String id) throws ModelNotFound {
         return modelService.getById(id);
     }
 
