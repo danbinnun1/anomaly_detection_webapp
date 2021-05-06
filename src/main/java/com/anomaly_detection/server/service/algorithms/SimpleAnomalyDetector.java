@@ -8,9 +8,7 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
 
     public SimpleAnomalyDetector() {
         threshold = 0.9F;
-
     }
-
 
     @Override
     public void learnNormal(final TimeSeries ts) {
@@ -39,12 +37,6 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
             Point[] ps = toPoints(ts.getAttributeData(f1), ts.getAttributeData(f2));
 
             learnHelper(ts, max, f1, f2, ps);
-
-            // delete points
-            for (int k = 0; k < len; k++) {
-                ps[k] = null;
-            }
-            ps = null;
         }
     }
 
@@ -81,8 +73,6 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
             c.feature2 = f2;
             c.correlation = p;
             c.lin_reg = MathUtil.linear_reg(ps, len);
-//C++ TO JAVA CONVERTER TODO TASK: The following line was determined to contain a copy constructor call - this should be verified and a copy constructor should be created:
-//ORIGINAL LINE: c.threshold=findThreshold(ps,len,c.lin_reg)*1.1;
             c.threshold = (float) (findThreshold(ps, len, new Line(c.lin_reg)) * 1.1); // 10% increase
             cf.add(c);
         }
