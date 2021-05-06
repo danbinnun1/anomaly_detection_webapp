@@ -10,33 +10,40 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping(path = "api/model")
+@RequestMapping(path = "api")
 @AllArgsConstructor
 public class ModelController {
     private final ModelService modelService;
 
-    @GetMapping("/{id}")
+    @GetMapping("model/{id}")
     public @ResponseBody
-    Model findById(@PathVariable String id) throws ModelNotFound {
+    ModelDto findById(@PathVariable String id) throws ModelNotFound {
         return modelService.getById(id);
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("models")
     public @ResponseBody
-    Model deleteById(@PathVariable String id) throws ModelNotFound {
+    List<ModelDto> findAllModels() throws ModelNotFound {
+        return modelService.getAllModels();
+    }
+
+    @DeleteMapping("model/{id}")
+    public @ResponseBody
+    ModelDto deleteById(@PathVariable String id) throws ModelNotFound {
         return modelService.delete(id);
     }
 
-    @PostMapping("/{model_type}")
+    @PostMapping("model/{model_type}")
     public @ResponseBody
     ModelDto trainModel(@PathVariable String model_type, @RequestBody Map<String, ArrayList<Float>> data) {
         return modelService.trainModel(data, model_type);
     }
     
-    @PostMapping
+    @PostMapping("anomaly")
     public @ResponseBody
     Anomaly detect(@RequestParam String model_id, @RequestBody Map<String, ArrayList<Float>> data){
         return modelService.detect(data,model_id);

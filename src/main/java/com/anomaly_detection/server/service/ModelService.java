@@ -20,12 +20,21 @@ public class ModelService {
     private final ModelRepository modelRepository;
     private ExecutorService executorService = Executors.newFixedThreadPool(20);
 
-    public Model getById(String integer) throws ModelNotFound {
+    public ModelDto getById(String integer) throws ModelNotFound {
         Optional<Model> model=modelRepository.findById(integer);
         if (model.isEmpty()){
             throw new ModelNotFound();
         }
-        return model.get();
+        return modelToDto(model.get());
+    }
+
+    public List<ModelDto> getAllModels() {
+        List<Model> models = modelRepository.findAll();
+        List<ModelDto> dtos = new ArrayList<>();
+        for(Model m : models){
+            dtos.add(modelToDto(m));
+        }
+        return dtos;
     }
 
     public void insert(Model model) {
@@ -52,7 +61,7 @@ public class ModelService {
             model.setStatus("ready");
             modelRepository.save(model);
         });
-        return new ModelDto(model.getId(), model.getInsertionTime(), model.getStatus());
+        return modelToDto(model);
     }
 
     public Anomaly detect(Map<String, ArrayList<Float>> data, String modelId) {
@@ -105,12 +114,17 @@ public class ModelService {
         return result;
     }
 
-    public Model delete(String modelId) throws ModelNotFound {
+    public ModelDto delete(String modelId) throws ModelNotFound {
         Optional<Model> model = modelRepository.findById(modelId);
         modelRepository.deleteById(modelId);
         if (model.isEmpty()){
             throw new ModelNotFound();
         }
-        return model.get();
+        return modelToDto(model.get());
     }
+
+    private ModelDto modelToDto(Model model){
+        return new ModelDto(model.getId(), model.getInsertionTime(), model.getStatus());
+    }
+
 }
