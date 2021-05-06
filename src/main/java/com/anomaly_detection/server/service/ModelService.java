@@ -3,7 +3,10 @@ package com.anomaly_detection.server.service;
 import com.anomaly_detection.server.dto.Anomaly;
 import com.anomaly_detection.server.dto.Span;
 import com.anomaly_detection.server.dto.ModelDto;
-import com.anomaly_detection.server.exceptions.ModelNotFound;
+import com.anomaly_detection.server.exceptions.InvalidDataException;
+import com.anomaly_detection.server.exceptions.ModelNotFoundException;
+import com.anomaly_detection.server.exceptions.TrainingNotFinishedException;
+import com.anomaly_detection.server.exceptions.TypeNotSupportedException;
 import com.anomaly_detection.server.model.Model;
 import com.anomaly_detection.server.repository.ModelRepository;
 import com.anomaly_detection.server.service.algorithms.*;
@@ -20,10 +23,10 @@ public class ModelService {
     private final ModelRepository modelRepository;
     private ExecutorService executorService = Executors.newFixedThreadPool(20);
 
-    public ModelDto getById(String integer) throws ModelNotFound {
+    public ModelDto getById(String integer) throws ModelNotFoundException {
         Optional<Model> model=modelRepository.findById(integer);
         if (model.isEmpty()){
-            throw new ModelNotFound();
+            throw new ModelNotFoundException();
         }
         return modelToDto(model.get());
     }
@@ -41,14 +44,14 @@ public class ModelService {
         modelRepository.insert(model);
     }
 
-    public ModelDto trainModel(Map<String, ArrayList<Float>> data, String type) {
+    public ModelDto trainModel(Map<String, ArrayList<Float>> data, String type) throws TypeNotSupportedException {
         TimeSeriesAnomalyDetector detector = null;
         if (type.equals("regression")) {
             detector = new SimpleAnomalyDetector();
         } else if (type.equals("hybrid")) {
             detector = new HybridAnomalyDetector();
         } else {
-            //throw exception
+            throw new TypeNotSupportedException();
         }
         Model model = new Model();
         modelRepository.save(model);
@@ -64,10 +67,13 @@ public class ModelService {
         return modelToDto(model);
     }
 
-    public Anomaly detect(Map<String, ArrayList<Float>> data, String modelId) {
+    public Anomaly detect(Map<String, ArrayList<Float>> data, String modelId) throws InvalidDataException, TrainingNotFinishedException {
         Model model = modelRepository.findById(modelId).get();
+        if(model.getStatus().equals("pending")){
+            throw new TrainingNotFinishedException();
+        }
         if (!data.keySet().containsAll(model.getColumnsNames())) {
-            //
+            throw new InvalidDataException();
         }
         for (String key : data.keySet()) {
             if (!model.getColumnsNames().contains(key)) {
@@ -114,11 +120,11 @@ public class ModelService {
         return result;
     }
 
-    public ModelDto delete(String modelId) throws ModelNotFound {
+    public ModelDto delete(String modelId) throws ModelNotFoundException {
         Optional<Model> model = modelRepository.findById(modelId);
         modelRepository.deleteById(modelId);
         if (model.isEmpty()){
-            throw new ModelNotFound();
+            throw new ModelNotFoundException();
         }
         return modelToDto(model.get());
     }
