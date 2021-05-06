@@ -17,7 +17,7 @@ public class Line {
         this.b = b;
     }
 
-    public final float f(float x) {
+    public float f(float x) {
         return a * x + b;
     }
 

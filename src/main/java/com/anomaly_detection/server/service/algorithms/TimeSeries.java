@@ -1,13 +1,9 @@
 package com.anomaly_detection.server.service.algorithms;
 
 import java.io.BufferedReader;
-import java.io.Closeable;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.PortUnreachableException;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
