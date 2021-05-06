@@ -21,7 +21,6 @@ public class ModelService {
     private ExecutorService executorService = Executors.newFixedThreadPool(20);
 
     public Model getById(String integer) throws ModelNotFound {
-        //implement: if model doesn't exist throw exception, catch in controller and return 404
         Optional<Model> model=modelRepository.findById(integer);
         if (model.isEmpty()){
             throw new ModelNotFound();
@@ -40,7 +39,7 @@ public class ModelService {
         } else if (type.equals("hybrid")) {
             detector = new HybridAnomalyDetector();
         } else {
-
+            //throw exception
         }
         Model model = new Model();
         modelRepository.save(model);
@@ -104,5 +103,14 @@ public class ModelService {
             result.add(new Span(firstOfSequence, lastOfSequence + 1));
         }
         return result;
+    }
+
+    public Model delete(String modelId) throws ModelNotFound {
+        Optional<Model> model = modelRepository.findById(modelId);
+        modelRepository.deleteById(modelId);
+        if (model.isEmpty()){
+            throw new ModelNotFound();
+        }
+        return model.get();
     }
 }

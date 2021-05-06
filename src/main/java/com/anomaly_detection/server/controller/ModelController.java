@@ -24,11 +24,18 @@ public class ModelController {
         return modelService.getById(id);
     }
 
+    @DeleteMapping("/{id}")
+    public @ResponseBody
+    Model deleteById(@PathVariable String id) throws ModelNotFound {
+        return modelService.delete(id);
+    }
+
     @PostMapping("/{model_type}")
     public @ResponseBody
     ModelDto trainModel(@PathVariable String model_type, @RequestBody Map<String, ArrayList<Float>> data) {
         return modelService.trainModel(data, model_type);
     }
+    
     @PostMapping
     public @ResponseBody
     Anomaly detect(@RequestParam String model_id, @RequestBody Map<String, ArrayList<Float>> data){
