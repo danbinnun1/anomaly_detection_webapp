@@ -1,5 +1,6 @@
 package com.anomaly_detection.server.dto;
 
+import com.anomaly_detection.server.service.Span;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
