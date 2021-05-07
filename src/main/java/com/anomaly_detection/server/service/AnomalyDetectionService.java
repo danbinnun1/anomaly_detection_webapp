@@ -17,7 +17,7 @@ import java.util.*;
 public class AnomalyDetectionService {
     private final ModelRepository modelRepository;
     
-    public Anomaly detect(Map<String, ArrayList<Float>> data, String modelId) throws InvalidDataException, TrainingNotFinishedException, ModelNotFoundException {
+    public Anomaly detect(Map<String, List<Float>> data, String modelId) throws InvalidDataException, TrainingNotFinishedException, ModelNotFoundException {
         var optionalModel = modelRepository.findById(modelId);
         if (optionalModel.isEmpty()){
             throw new ModelNotFoundException();

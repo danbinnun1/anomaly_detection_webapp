@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -20,7 +21,7 @@ public class AnomalyDetectionController {
 
     @PostMapping("anomaly")
     public @ResponseBody
-    Anomaly detect(@RequestParam String model_id, @RequestBody Map<String, ArrayList<Float>> data) throws TrainingNotFinishedException, InvalidDataException, ModelNotFoundException {
+    Anomaly detect(@RequestParam String model_id, @RequestBody Map<String, List<Float>> data) throws TrainingNotFinishedException, InvalidDataException, ModelNotFoundException {
         return anomalyDetectorService.detect(data,model_id);
     }
 }
