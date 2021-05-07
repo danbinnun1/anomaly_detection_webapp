@@ -44,10 +44,4 @@ public class ModelController {
     ModelDto trainModel(@PathVariable String model_type, @RequestBody Map<String, ArrayList<Float>> data) throws TypeNotSupportedException {
         return modelService.trainModel(data, model_type);
     }
-    
-    @PostMapping("anomaly")
-    public @ResponseBody
-    Anomaly detect(@RequestParam String model_id, @RequestBody Map<String, ArrayList<Float>> data) throws TrainingNotFinishedException, InvalidDataException {
-        return modelService.detect(data,model_id);
-    }
 }
