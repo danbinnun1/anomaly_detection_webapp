@@ -18,7 +18,11 @@ import java.util.concurrent.Executors;
 @Service
 public class ModelService {
     private final ModelRepository modelRepository;
-    private final ExecutorService executorService = Executors.newFixedThreadPool(20);
+
+    private final AnomalyDetectorFactory anomalyDetectorFactory = new AnomalyDetectorFactory();
+    private final ExecutorService executorService = Executors.newFixedThreadPool(threadPoolBacklog);
+
+    private static final int threadPoolBacklog = 20;
 
     public ModelDto getById(String integer) throws ModelNotFoundException {
         Optional<Model> model = modelRepository.findById(integer);
@@ -54,25 +58,20 @@ public class ModelService {
     }
 
     public ModelDto trainModel(Map<String, ArrayList<Float>> data, String type) throws TypeNotSupportedException {
-        TimeSeriesAnomalyDetector detector = null;
+        TimeSeriesAnomalyDetector anomalyDetector = anomalyDetectorFactory.createAnomalyDetector(type);
 
-        if (type.equals("regression")) {
-            detector = new SimpleAnomalyDetector();
-        } else if (type.equals("hybrid")) {
-            detector = new HybridAnomalyDetector();
-        } else {
+        if (anomalyDetector == null) {
             throw new TypeNotSupportedException();
         }
 
-        Model model = new Model();
+        var model = new Model();
         modelRepository.save(model);
 
-        TimeSeriesAnomalyDetector finalDetector = detector;
         executorService.execute(() -> {
             //train model and update database
-            finalDetector.learnNormal(new TimeSeries(data));
+            anomalyDetector.learnNormal(new TimeSeries(data));
 
-            model.setColumnsNames(data.keySet()).setDetector(finalDetector).setStatus("ready");
+            model.setColumnsNames(data.keySet()).setDetector(anomalyDetector).setStatus("ready");
             modelRepository.save(model);
         });
 
