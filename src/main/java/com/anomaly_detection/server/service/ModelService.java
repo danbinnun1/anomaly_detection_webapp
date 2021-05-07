@@ -56,8 +56,8 @@ public class ModelService {
         Model model = new Model();
         modelRepository.save(model);
         TimeSeriesAnomalyDetector finalDetector = detector;
-        Model modelCopy = new Model(model);
         executorService.execute(() -> {
+            //train model and update database
             model.setColumnsNames(data.keySet());
             finalDetector.learnNormal(new TimeSeries(data));
             model.setDetector(finalDetector);
@@ -72,17 +72,24 @@ public class ModelService {
         if(model.getStatus().equals("pending")){
             throw new TrainingNotFinishedException();
         }
+        //data must contain all columns the model trained on
         if (!data.keySet().containsAll(model.getColumnsNames())) {
             throw new InvalidDataException();
         }
+        //if data contains additional columns the models didn't trained on, they can be ignored
         for (String key : data.keySet()) {
             if (!model.getColumnsNames().contains(key)) {
                 data.remove(key);
             }
         }
         ArrayList<AnomalyReport> anomalies = model.getDetector().detect(new TimeSeries(data));
+        //get Anomaly object made of spans
+        return getAnomaly(anomalies, model.getColumnsNames());
+    }
+
+    private Anomaly getAnomaly(ArrayList<AnomalyReport> anomalies, Set<String> columnNames){
         Map<String, List<Span>> result = new TreeMap<>();
-        for (String column : model.getColumnsNames()) {
+        for (String column : columnNames) {
             List<Integer> columnAnomalies = new ArrayList<>();
             for (AnomalyReport anomalyReport : anomalies) {
                 if (column.equals(anomalyReport.getFeature1()) || column
