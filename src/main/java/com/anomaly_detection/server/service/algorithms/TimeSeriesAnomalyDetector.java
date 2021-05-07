@@ -2,10 +2,9 @@ package com.anomaly_detection.server.service.algorithms;
 
 import java.io.Closeable;
 import java.util.ArrayList;
+import java.util.List;
 
-public abstract class TimeSeriesAnomalyDetector {
-    public abstract void learnNormal(TimeSeries ts);
-
-    public abstract ArrayList<AnomalyReport> detect(TimeSeries ts);
-
+public interface TimeSeriesAnomalyDetector {
+    void learnNormal(TimeSeries ts);
+    List<AnomalyReport> detect(TimeSeries ts);
 }
