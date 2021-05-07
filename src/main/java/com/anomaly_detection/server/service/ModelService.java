@@ -25,7 +25,7 @@ public class ModelService {
     private static final int threadPoolBacklog = 20;
 
     public ModelDto getById(String integer) throws ModelNotFoundException {
-        Optional<Model> model = modelRepository.findById(integer);
+        var model = modelRepository.findById(integer);
 
         if (model.isEmpty()){
             throw new ModelNotFoundException();
@@ -49,15 +49,18 @@ public class ModelService {
     }
 
     public ModelDto delete(String modelId) throws ModelNotFoundException {
-        Optional<Model> model = modelRepository.findById(modelId);
-        modelRepository.deleteById(modelId);
-        if (model.isEmpty()){
+        var optionalModel = modelRepository.findById(modelId);
+
+        if (optionalModel.isEmpty()){
             throw new ModelNotFoundException();
         }
-        return ModelMapper.toModelDto(model.get());
+
+        modelRepository.deleteById(modelId);
+
+        return ModelMapper.toModelDto(optionalModel.get());
     }
 
-    public ModelDto trainModel(Map<String, ArrayList<Float>> data, String type) throws TypeNotSupportedException {
+    public ModelDto trainModel(Map<String, List<Float>> data, String type) throws TypeNotSupportedException {
         TimeSeriesAnomalyDetector anomalyDetector = anomalyDetectorFactory.createAnomalyDetector(type);
 
         if (anomalyDetector == null) {

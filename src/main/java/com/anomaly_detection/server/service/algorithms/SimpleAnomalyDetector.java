@@ -1,9 +1,10 @@
 package com.anomaly_detection.server.service.algorithms;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
-    protected ArrayList<correlatedFeatures> cf = new ArrayList<correlatedFeatures>();
+public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
+    protected List<correlatedFeatures> cf = new ArrayList<>();
     protected float threshold;
 
     public SimpleAnomalyDetector() {
@@ -12,11 +13,11 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
 
     @Override
     public void learnNormal(final TimeSeries ts) {
-        ArrayList<String> atts = ts.gettAttributes();
+        List<String> atts = ts.gettAttributes();
         int len = ts.getRowSize();
         float[][] vals = new float[atts.size()][len];
         for (int i = 0; i < atts.size(); i++) {
-            ArrayList<Float> x = ts.getAttributeData(atts.get(i));
+            List<Float> x = ts.getAttributeData(atts.get(i));
             for (int j = 0; j < len; j++) {
                 vals[i][j] = x.get(j);
             }
@@ -41,11 +42,11 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
     }
 
     @Override
-    public ArrayList<AnomalyReport> detect(final TimeSeries ts) {
-        ArrayList<AnomalyReport> v = new ArrayList<AnomalyReport>();
+    public List<AnomalyReport> detect(final TimeSeries ts) {
+        List<AnomalyReport> v = new ArrayList<>();
         for (correlatedFeatures c : cf) {
-            ArrayList<Float> x = ts.getAttributeData(c.feature1);
-            ArrayList<Float> y = ts.getAttributeData(c.feature2);
+            List<Float> x = ts.getAttributeData(c.feature1);
+            List<Float> y = ts.getAttributeData(c.feature2);
             for (int i = 0; i < x.size(); i++) {
                 if (isAnomalous(x.get(i), y.get(i), c)) {
                     v.add(new AnomalyReport(c.feature1, c.feature2, (i + 1)));
@@ -55,7 +56,7 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
         return v;
     }
 
-    public ArrayList<correlatedFeatures> getCf() {
+    public List<correlatedFeatures> getCf() {
         return cf;
     }
 
@@ -82,7 +83,7 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
         return (Math.abs(y - c.lin_reg.f(x)) > c.threshold);
     }
 
-    protected final Point[] toPoints(ArrayList<Float> x, ArrayList<Float> y) {
+    protected final Point[] toPoints(List<Float> x, List<Float> y) {
         Point[] ps = new Point[x.size()];
         for (int i = 0; i < x.size(); i++) {
             ps[i] = new Point(x.get(i), y.get(i));

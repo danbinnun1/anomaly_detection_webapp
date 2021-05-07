@@ -4,22 +4,23 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class TimeSeries {
-    private Map<String, ArrayList<Float>> ts = new TreeMap<String, ArrayList<Float>>();
-    private ArrayList<String> atts = new ArrayList<String>();
+    private Map<String, List<Float>> ts = new TreeMap<>();
+    private List<String> atts = new ArrayList<>();
     private int dataRowSize;
 
 
     public TimeSeries(String CSVfileName) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(CSVfileName));
         String head = reader.readLine();
-        Integer j = 0;
+        int j = 0;
         for (String attribute : head.split(",")) {
-            ts.put(j.toString(), new ArrayList<Float>());
-            atts.add(j.toString());
+            ts.put(Integer.toString(j), new ArrayList<>());
+            atts.add(Integer.toString(j));
             j++;
         }
         String line;
@@ -35,11 +36,11 @@ public class TimeSeries {
 
     }
 
-    public final ArrayList<Float> getAttributeData(String name) {
+    public final List<Float> getAttributeData(String name) {
         return ts.get(name);
     }
 
-    public final ArrayList<String> gettAttributes() {
+    public final List<String> gettAttributes() {
         return atts;
     }
 
@@ -48,10 +49,10 @@ public class TimeSeries {
     }
 
 
-    public TimeSeries(Map<String, ArrayList<Float>> ts) {
+    public TimeSeries(Map<String, List<Float>> ts) {
         this.ts = ts;
-        this.atts=new ArrayList<>();
+        this.atts = new ArrayList<>();
         this.atts.addAll(ts.keySet());
-        dataRowSize=ts.get(atts.get(0)).size();
+        dataRowSize = ts.get(atts.get(0)).size();
     }
 }

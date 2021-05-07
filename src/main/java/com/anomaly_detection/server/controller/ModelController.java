@@ -23,25 +23,25 @@ public class ModelController {
 
     @GetMapping("model/{id}")
     public @ResponseBody
-    ModelDto findById(@PathVariable String id) throws ModelNotFoundException, ModelNotFoundException {
+    ModelDto findById(@PathVariable String id) throws ModelNotFoundException {
         return modelService.getById(id);
     }
 
     @GetMapping("models")
     public @ResponseBody
-    List<ModelDto> findAllModels() throws ModelNotFoundException {
+    List<ModelDto> findAllModels() {
         return modelService.getAllModels();
     }
 
     @DeleteMapping("model/{id}")
     public @ResponseBody
-    ModelDto deleteById(@PathVariable String id) throws ModelNotFoundException, ModelNotFoundException {
+    ModelDto deleteById(@PathVariable String id) throws ModelNotFoundException {
         return modelService.delete(id);
     }
 
     @PostMapping("model/{model_type}")
     public @ResponseBody
-    ModelDto trainModel(@PathVariable String model_type, @RequestBody Map<String, ArrayList<Float>> data) throws TypeNotSupportedException {
+    ModelDto trainModel(@PathVariable String model_type, @RequestBody Map<String, List<Float>> data) throws TypeNotSupportedException {
         return modelService.trainModel(data, model_type);
     }
 }
