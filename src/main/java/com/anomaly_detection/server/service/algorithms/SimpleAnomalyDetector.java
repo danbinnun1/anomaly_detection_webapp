@@ -27,7 +27,7 @@ public class SimpleAnomalyDetector extends TimeSeriesAnomalyDetector {
             float max = 0F;
             int jmax = 0;
             for (int j = i + 1; j < atts.size(); j++) {
-                float p = Math.abs(MathUtil.pearson(vals[i], vals[j], len));
+                float p = Math.abs(MathUtil.pearson(vals[i], vals[j]));
                 if (p > max) {
                     max = p;
                     jmax = j;
