@@ -5,37 +5,37 @@ import java.util.Random;
 
 public class MathUtil {
 
-    public static float avg(float[] x, int size) {
+    public static float avg(float[] x) {
         float sum = 0F;
-        for (int i = 0; i < size; sum += x[i], i++) {
-            ;
+        for (float num : x) {
+            sum += num;
         }
-        return sum / size;
+        return sum / x.length;
     }
 
     // returns the variance of X and Y
-    public static float variance(float[] x, int size) {
-        float av = avg(x, size);
+    public static float variance(float[] x) {
+        float av = avg(x);
         float sum = 0F;
-        for (int i = 0; i < size; i++) {
-            sum += x[i] * x[i];
+        for (float num : x) {
+            sum += num * num;
         }
-        return sum / size - av * av;
+        return sum / x.length - av * av;
     }
 
     // returns the covariance of X and Y
-    public static float cov(float[] x, float[] y, int size) {
+    public static float cov(float[] x, float[] y) {
         float sum = 0F;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < x.length; i++) {
             sum += x[i] * y[i];
         }
-        sum /= size;
-        return sum - avg(x, size) * avg(y, size);
+        sum /= x.length;
+        return sum - avg(x) * avg(y);
     }
 
     // returns the Pearson correlation coefficient of X and Y
-    public static float pearson(float[] x, float[] y, int size) {
-        return (float) (cov(x, y, size) / (Math.sqrt(variance(x, size)) * Math.sqrt(variance(y, size))));
+    public static float pearson(float[] x, float[] y) {
+        return (float) (cov(x, y) / (Math.sqrt(variance(x)) * Math.sqrt(variance(y))));
     }
 
     // performs a linear regression and returns the line equation
@@ -46,8 +46,8 @@ public class MathUtil {
             x[i] = points[i].getX();
             y[i] = points[i].getY();
         }
-        float a = cov(x, y, size) / variance(x, size);
-        float b = avg(y, size) - a * (avg(x, size));
+        float a = cov(x, y) / variance(x);
+        float b = avg(y) - a * (avg(x));
         return new Line(a, b);
     }
 
