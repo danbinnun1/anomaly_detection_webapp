@@ -7,19 +7,15 @@ import com.anomaly_detection.server.exceptions.TrainingNotFinishedException;
 import com.anomaly_detection.server.repository.ModelRepository;
 import com.anomaly_detection.server.service.algorithms.AnomalyReport;
 import com.anomaly_detection.server.service.algorithms.TimeSeries;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@RequiredArgsConstructor
 @Service
 public class MyAnomalyDetectionService implements AnomalyDetectionService {
     private final ModelRepository modelRepository;
-
-    @Autowired
-    public MyAnomalyDetectionService(ModelRepository modelRepository) {
-        this.modelRepository = modelRepository;
-    }
 
     public Anomaly detect(Map<String, List<Float>> data, String modelId) throws InvalidDataException, TrainingNotFinishedException, ModelNotFoundException {
         var optionalModel = modelRepository.findById(modelId);
@@ -42,6 +38,7 @@ public class MyAnomalyDetectionService implements AnomalyDetectionService {
                 data.remove(key);
             }
         }
+        
         var anomalies = model.getDetector().detect(new TimeSeries(data));
         //get Anomaly object made of spans
         return getAnomaly(anomalies, model.getColumnsNames());

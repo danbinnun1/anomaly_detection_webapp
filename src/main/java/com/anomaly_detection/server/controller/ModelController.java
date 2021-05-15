@@ -4,6 +4,7 @@ import com.anomaly_detection.server.dto.ModelDto;
 import com.anomaly_detection.server.exceptions.ModelNotFoundException;
 import com.anomaly_detection.server.exceptions.TypeNotSupportedException;
 import com.anomaly_detection.server.service.ModelService;
+import com.anomaly_detection.server.service.ModelTrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,12 @@ import java.util.Map;
 @RequestMapping(path = "api")
 public class ModelController {
     private final ModelService modelService;
+    private final ModelTrainingService modelTrainingService;
 
     @Autowired
-    public ModelController(ModelService modelService) {
+    public ModelController(ModelService modelService, ModelTrainingService modelTrainingService) {
         this.modelService = modelService;
+        this.modelTrainingService = modelTrainingService;
     }
 
     @GetMapping("model/{id}")
@@ -42,6 +45,6 @@ public class ModelController {
     @PostMapping("model/{model_type}")
     public @ResponseBody
     ModelDto trainModel(@PathVariable String model_type, @RequestBody Map<String, List<Float>> data) throws TypeNotSupportedException {
-        return modelService.trainModel(data, model_type);
+        return modelTrainingService.trainModel(data, model_type);
     }
 }
