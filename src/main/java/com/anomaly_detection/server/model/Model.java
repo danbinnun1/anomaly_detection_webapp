@@ -15,19 +15,19 @@ import java.util.Set;
 public class Model {
     @Id
     private String id;
-    private Date insertionTime;
+    private Date uploadTime;
     private String status;
     private TimeSeriesAnomalyDetector detector;
     private Set<String> columnsNames;
 
     public Model() {
-        insertionTime = new Date();
+        uploadTime = new Date();
         status = "pending";
     }
 
     public Model(Model other) {
         this.id = other.id;
-        this.insertionTime = other.insertionTime;
+        this.uploadTime = other.uploadTime;
         this.status = other.status;
         this.detector = other.detector;
         this.columnsNames = other.columnsNames;

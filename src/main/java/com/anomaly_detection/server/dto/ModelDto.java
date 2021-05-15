@@ -1,13 +1,14 @@
 package com.anomaly_detection.server.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.util.Date;
 
 @Data
-@AllArgsConstructor
+@Accessors(chain = true)
 public class ModelDto {
-    private String model_id;
-    private Date upload_time;
+    private String modelId;
+    private Date uploadTime;
     private String status;
 }

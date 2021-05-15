@@ -4,6 +4,6 @@ import com.anomaly_detection.server.model.Model;
 
 public class ModelMapper {
     public static ModelDto toModelDto(Model model) {
-        return new ModelDto(model.getId(), model.getInsertionTime(), model.getStatus());
+        return new ModelDto().setModelId(model.getId()).setUploadTime(model.getUploadTime()).setStatus(model.getStatus());
     }
 }
