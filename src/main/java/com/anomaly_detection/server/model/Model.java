@@ -17,19 +17,12 @@ public class Model {
     private String id;
     private Date uploadTime;
     private String status;
+
     private TimeSeriesAnomalyDetector detector;
     private Set<String> columnsNames;
 
     public Model() {
         uploadTime = new Date();
         status = "pending";
-    }
-
-    public Model(Model other) {
-        this.id = other.id;
-        this.uploadTime = other.uploadTime;
-        this.status = other.status;
-        this.detector = other.detector;
-        this.columnsNames = other.columnsNames;
     }
 }
