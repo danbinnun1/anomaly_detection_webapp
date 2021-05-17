@@ -18,13 +18,14 @@ class Models extends React.Component {
 
     render() {
         return (
-            <ul class="list-group">
-              {this.state.models.map(item=>(
-                  <li className="list-group-item list-group-item-primary">
-                      <Model status={item.status} date={item.uploadTime}></Model>
-                  </li>
-              ))}
-            </ul>
+            <div style={{position:'fixed',width:320,overflowY:'scroll',top:0,bottom:0}}>
+            {this.state.models.map(item=>(
+                <li style={{listStyleType:'none'}}>
+                    <Model status={item.status} date={item.uploadTime}></Model>
+                    <br></br>
+                </li>
+            ))}
+            </div>
         )
     }
 }
