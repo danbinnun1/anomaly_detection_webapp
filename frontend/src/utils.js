@@ -1,4 +1,4 @@
-const convertCSVToJSON = file => {
+function convertCSVToJSON (file) {
     var reader = new FileReader();
   
     reader.onload = () => {
@@ -24,3 +24,5 @@ const convertCSVToJSON = file => {
   
     reader.readAsText(file);
 }
+
+export default convertCSVToJSON
