@@ -1,28 +1,28 @@
 function convertCSVToJSON (file) {
-    var reader = new FileReader();
+  var reader = new FileReader();
+
+  reader.onload = () => {
+    var lines = reader.result.split("\n");
+    var result = [];
   
-    reader.onload = () => {
-      var lines = reader.result.split("\n");
-      var result = [];
-    
-      var headers = lines[0].split(",");
-    
-      for (var i = 1; i < lines.length; ++i){
-    
-        var obj = {};
-        var currentline = lines[i].split(",");
-    
-        for (var j = 0; j < headers.length; ++j) {
-          obj[headers[j]] = currentline[j];
-        }
-    
-        result.push(obj);
+    var headers = lines[0].split(",");
+  
+    for (var i = 1; i < lines.length; ++i){
+  
+      var obj = {};
+      var currentline = lines[i].split(",");
+  
+      for (var j = 0; j < headers.length; ++j) {
+        obj[headers[j]] = currentline[j];
       }
   
-      return JSON.stringify(result);
+      result.push(obj);
     }
-  
-    reader.readAsText(file);
+
+    return JSON.stringify(result);
+  }
+
+  reader.readAsText(file);
 }
 
 export default convertCSVToJSON
