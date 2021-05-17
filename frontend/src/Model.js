@@ -5,7 +5,7 @@ export default function Model(props) {
     if (props.status == "ready") {
         color = "green";
     }
-    else{
+    else {
         color="red";
     }
     const style={
