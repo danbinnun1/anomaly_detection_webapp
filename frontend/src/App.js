@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react'
 import Models from './Models'
-import FileUploadBox from './FileUploadBox'
+import DropZone from './DropZone'
 import convertCSVToJSON from './utils'
 
 class App extends React.Component {
@@ -14,9 +14,9 @@ class App extends React.Component {
     return (
       <div>
         <Models />
-        <FileUploadBox onUpload={(file) => {
-          const json = convertCSVToJSON(file);
-          fetch("/api/model/hybrid", {
+        <FileUploadBox onUpload={async (file) => {
+          await new Promise((resolve, reject) => {const json = convertCSVToJSON(file);});
+          await fetch("/api/model/hybrid", {
             method: 'POST',
             body: json
           });
