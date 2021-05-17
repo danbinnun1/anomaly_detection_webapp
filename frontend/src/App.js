@@ -29,29 +29,24 @@ const convertToJSON = file => {
   reader.readAsText(file);
 }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <FileUploadBox onUpload={(file) => {
-          const json = convertToJSON(file);
-          fetch(json)
-        }} />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Models from './ModelsList'
+import { Component } from 'react';
+
+class App extends Component {
+  state = {
+    models: []
+  };
+  async componentDidMount() {
+    const modelsResponse = await fetch("/api/models");
+    this.setState({models: await modelsResponse.json()})
+    //this.state.models = await modelsResponse.json();
+  }
+  render() {
+    return (
+      <Models models={this.state.models}></Models>
+    );
+  }
 }
+
 
 export default App;
