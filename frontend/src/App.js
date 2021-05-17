@@ -13,14 +13,19 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Models />
-        <FileUploadBox onUpload={(file) => {
-          const json = convertCSVToJSON(file);
-          fetch("/api/model/hybrid", {
-            method: 'POST',
-            body: json
-          });
-        }}/>
+        <div style={{ position: 'fixed', width: 320, overflowY: 'scroll', top: 10, bottom: '20%', left: '83%' }}>
+          <Models />
+        </div>
+        <div>
+          <FileUploadBox onUpload={(file) => {
+            const json = convertCSVToJSON(file);
+            fetch("/api/model/hybrid", {
+              method: 'POST',
+              body: json
+            });
+          }} />
+        </div>
+
       </div>
     );
   }

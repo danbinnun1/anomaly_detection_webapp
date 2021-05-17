@@ -18,7 +18,7 @@ class Models extends React.Component {
 
     render() {
         return (
-            <div style={{position:'fixed',width:320,overflowY:'scroll',top:0,bottom:0}}>
+            <div>
             {this.state.models.map(item=>(
                 <li style={{listStyleType:'none'}}>
                     <Model status={item.status} date={item.uploadTime}></Model>
