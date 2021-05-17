@@ -10,10 +10,10 @@ export default function Model(props) {
     }
     const style={
         backgroundColor: color,
-            padding: 20,
-            width: 250,
-            height: 50, border: 20,
-            borderRadius: 25
+        padding: 20,
+        width: 250,
+        height: 50, border: 20,
+        borderRadius: 25
     }
     return (
         <div style={style}>

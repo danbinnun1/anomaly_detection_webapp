@@ -14,8 +14,8 @@ class App extends React.Component {
     return (
       <div>
         <Models />
-        <FileUploadBox onUpload={async (file) => {
-          await new Promise((resolve, reject) => {const json = convertCSVToJSON(file);});
+        <DropZone onUpload={async (file) => {
+          const json = await new Promise(resolve => resolve(convertCSVToJSON(file)));
           await fetch("/api/model/hybrid", {
             method: 'POST',
             body: json
