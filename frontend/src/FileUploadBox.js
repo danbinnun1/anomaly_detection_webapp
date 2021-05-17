@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 
 function FileUploadBox(props) {
-    const [currentFile, setCurrentFile] = useState();
+    var [currentFile, setCurrentFile] = useState();
 
     const changeHandler = (event) => {
         setCurrentFile(event.target.files[0]);
     }
     const onSubmission = () => {
-        if (currentFile != undefined) {
+        if (currentFile !== undefined) {
             props.onUpload(currentFile);
             currentFile = undefined;
         }
@@ -25,3 +25,5 @@ function FileUploadBox(props) {
         </div>
     )
 }
+
+export default FileUploadBox
