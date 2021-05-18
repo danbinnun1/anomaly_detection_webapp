@@ -2,7 +2,6 @@ import './App.css';
 import React from 'react'
 import Models from './Models'
 import DropZone from './DropZone'
-import FileUploadBox from './FileUploadBox'
 import convertCSVToJSON from './utils'
 
 class App extends React.Component {
