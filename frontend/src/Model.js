@@ -2,13 +2,13 @@ import React from 'react'
 
 export default function Model(props) {
     let color;
-    if (props.status == "ready") {
+    if (props.status === "ready") {
         color = "green";
     }
     else {
         color="red";
     }
-    const style={
+    const style = {
         backgroundColor: color,
         padding: 20,
         width: 250,
