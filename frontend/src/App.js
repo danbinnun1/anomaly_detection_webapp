@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react'
 import Models from './Models'
-import DropZone from './DropZone'
+import  FileUploadBox  from "./FileUploadBox";
 import convertCSVToJSON from './utils'
 class App extends React.Component {
 
@@ -13,9 +13,10 @@ class App extends React.Component {
         </div>
 
         <div style={{ position: 'fixed', bottom: '5%', right: '2%' }} >
-          <DropZone onUpload={file => convertCSVToJSON(file)
+          <FileUploadBox onUpload={file => convertCSVToJSON(file)
             .then(json => fetch("/api/model/hybrid", {
               method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
               body: json
             }))} />
         </div>
