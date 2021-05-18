@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-function FileUploadBox(props) {
+export default function FileUploadBox(props) {
     var [currentFile, setCurrentFile] = useState();
 
     const changeHandler = (event) => {
@@ -18,12 +18,13 @@ function FileUploadBox(props) {
 
     return (
         <div>
-            <input type="file" name="file" onChange={changeHandler} />
+            <div class="form-group files">
+                <input type="file" name="file" onChange={changeHandler} />
+            </div>
             <div>
-                <button onClick={onSubmission}>Submit</button>
+                <button onClick={onSubmission}>train</button>
             </div>
         </div>
     )
 }
 
-export default FileUploadBox
