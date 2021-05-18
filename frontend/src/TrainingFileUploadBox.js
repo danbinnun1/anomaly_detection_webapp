@@ -22,9 +22,7 @@ export default function TrainingFileUploadBox(props) {
 
     return (
         <div>
-            <div onChange={(event) => {
-                setAlgorithm(event.target.value);
-            }}>
+            <div onChange={event => setAlgorithm(event.target.value)}>
                 <input type="radio" value="regression" name="algorithm" />regression
                 <input type="radio" value="hybrid" name="algorithm" />hybrid
             </div>

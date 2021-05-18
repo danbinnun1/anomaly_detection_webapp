@@ -1,4 +1,4 @@
-export default function convertCSVToJSON(file) {
+export function convertCSVToJSON(file) {
   return new Promise((resolve) => {
     var reader = new FileReader();
 
@@ -22,7 +22,7 @@ export default function convertCSVToJSON(file) {
           result[headers[j]].push(currentline[j]);
         }
       }
-      console.log(JSON.stringify(result))
+
       resolve(JSON.stringify(result));
     }
 
@@ -33,18 +33,23 @@ export default function convertCSVToJSON(file) {
 export function splitCSV(file) {
   return new Promise((resolve) => {
     var reader = new FileReader();
+
     reader.onload = () => {
       let lines = reader.result.split("\n");
       let lastLine = lines[lines.length - 1];
+
       if (lastLine == '') {
         lines.pop();
       }
+
       let result = [];
       for (let i = 0; i < lines.length; ++i) {
         result.push(lines[i].split(","));
       }
+
       resolve(result);
     }
+    
     reader.readAsText(file);
   });
 }
