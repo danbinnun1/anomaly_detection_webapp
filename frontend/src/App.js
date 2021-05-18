@@ -1,41 +1,19 @@
 import './App.css';
-import React from 'react'
-import Models from './Models'
-import TrainingFileUploadBox  from "./TrainingFileUploadBox";
-import {convertCSVToJSON} from './utils'
+import {useState} from 'react'
 import AnomalyPanel from './AnomalyPanel'
+import ModelTrainingPanel from './ModelTrainingPanel'
 
-class App extends React.Component {
+function App() {
 
-  constructor(props) {
-    super(props);
+  const [currentModelId, setCurrentModelId] = useState();
 
-    this.state = {
-      FlightDataTable: undefined
-    }
-  }
+  return (
+    <div>
+      <AnomalyPanel modelId={currentModelId} />
 
-  render() {
-    return (
-      <div>
-        <AnomalyPanel />        
-
-        <div style={{ position: 'fixed', width: '20%', overflowY: 'scroll', top: 10, bottom: '20%', left: '83%' }}>
-          <Models />
-        </div>
-
-        <div style={{ position: 'fixed', bottom: '5%', right: '2%' }} >
-          <TrainingFileUploadBox onUpload={(file, algorithm) => 
-          convertCSVToJSON(file)
-            .then(json => fetch("/api/model/" + algorithm, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: json
-            }))} />
-        </div>
-      </div>
-    );
-  }
+      <ModelTrainingPanel onModelSelect={modelId => setCurrentModelId(modelId)} />
+    </div>
+  );
 }
 
 export default App;

@@ -13,14 +13,14 @@ class Models extends React.Component {
     componentDidMount() {
         fetch("/api/models")
         .then(respone => respone.json())
-        .then(json => this.setState({models : json}));
+        .then(json => this.setState({models: json}));
     }
 
     render() {
         return (
             <div>
             {this.state.models.map(item=>(
-                <li style={{listStyleType:'none'}}>
+                <li style={{listStyleType: 'none'}}>
                     <Model status={item.status} date={item.uploadTime} />
                     <br />
                 </li>
