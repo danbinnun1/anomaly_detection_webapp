@@ -4,6 +4,10 @@ export default function convertCSVToJSON (file) {
 
     reader.onload = () => {
       let lines = reader.result.split("\n");
+      let lastLine=lines[lines.length-1];
+      if (lastLine==''){
+        lines.pop();
+      }
       let result = {};
     
       let headers = lines[0].split(",");
