@@ -1,33 +1,32 @@
-import React, {useState} from 'react'
+import {useState, useEffect} from 'react'
 import Model from './Model'
 
-class Models extends React.Component {
+function Models(props) {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            models : []
-        }
-    }
+    const [modelsList, setModelsList] = useState();
 
-    componentDidMount() {
-        fetch("/api/models")
+    useEffect(() => fetch('/api/models')
         .then(respone => respone.json())
-        .then(json => this.setState({models: json}));
-    }
+        .then(json => setModelsList(json)));
+    
+    const getColor = status => (status === 'ready' ? 'green' : 'red');
 
-    render() {
-        return (
-            <div>
-            {this.state.models.map(item=>(
-                <li style={{listStyleType: 'none'}}>
-                    <Model status={item.status} date={item.uploadTime} />
-                    <br />
-                </li>
-            ))}
-            </div>
-        )
-    }
+    return (
+        <div>
+        {modelsList.map(item => (
+            <li style={{listStyleType: 'none'}}>
+                <div
+                style={{backgroundColor: getColor(item.status), padding: 20, width: 250, height: 50, border: 20, borderRadius: 25}}
+                onClick={props.onModelSelect}>
+                    {item.uploadTime}
+                        <br />
+                    {item.status}
+                </div>
+                <br />
+            </li>
+        ))}
+        </div>
+    )
 }
 
 export default Models

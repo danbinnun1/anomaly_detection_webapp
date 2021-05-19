@@ -13,7 +13,7 @@ export default function ModelTrainingPanel(props) {
             <div style={{ position: 'fixed', bottom: '5%', right: '2%' }} >
                 <TrainingFileUploadBox onUpload={(file, algorithm) => 
                 convertCSVToJSON(file)
-                    .then(json => fetch("/api/model/" + algorithm, {
+                    .then(json => fetch('/api/model/' + algorithm, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: json

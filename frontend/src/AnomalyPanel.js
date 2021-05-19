@@ -11,7 +11,7 @@ export default function AnomalyPanel(props) {
         <div>
             <AnomalyFileUploadBox onUpload={file => {
                 /*convertCSVToJSON(file).then(json => 
-                    fetch("/api/anomaly?model_id=" + props.modelId, {
+                    fetch('/api/anomaly?model_id=' + props.modelId, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: json
