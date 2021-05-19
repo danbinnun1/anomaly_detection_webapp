@@ -4,15 +4,15 @@ export default function AnomalyFileUploadBox(props) {
 
     const [currentFile, setCurrentFile] = useState();
     
-    const changeHandler = useCallback((event) => {
+    const changeHandler = event => {
         setCurrentFile(event.target.files[0]);
-    });
-    const onSubmission = useCallback(() => {
+    };
+    const onSubmission = () => {
         if (currentFile !== undefined) {
             props.onUpload(currentFile);
             setCurrentFile(undefined);
         }
-    })
+    };
 
     return (
         <div>

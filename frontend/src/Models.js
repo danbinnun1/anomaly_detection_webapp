@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 
 function Models(props) {
 
-    const [modelsList, setModelsList] = useState();
+    const [modelsList, setModelsList] = useState([]);
 
     useEffect(() => fetch('/api/models')
         .then(respone => respone.json())
