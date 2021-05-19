@@ -28,8 +28,10 @@ function Models(props) {
                     borderStyle: 'solid'
                 }}
                 onClick={() => {
-                    props.onModelSelect();
-                    setCurrentModel(item.modelId);
+                    if (item.status === 'ready') {
+                        props.onModelSelect();
+                        setCurrentModel(item.modelId);
+                    }
                 }}>
                     {item.uploadTime}
                         <br />
