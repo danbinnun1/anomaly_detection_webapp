@@ -11,7 +11,8 @@ function App() {
     <div>
       <AnomalyPanel modelId={currentModelId} />
 
-      <ModelTrainingPanel onModelSelect={modelId => setCurrentModelId(modelId)} />
+      <ModelTrainingPanel onModelSelect={modelId => {
+        setCurrentModelId(modelId)}} />
     </div>
   );
 }

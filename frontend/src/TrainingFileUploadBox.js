@@ -16,7 +16,6 @@ export default function TrainingFileUploadBox(props) {
         else {
             // there isnt a file to upload
         }
-        window.location.reload();
     }
     
 
