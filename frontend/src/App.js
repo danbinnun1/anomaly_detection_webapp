@@ -1,4 +1,3 @@
-import './App.css';
 import {useState} from 'react'
 import AnomalyPanel from './AnomalyPanel'
 import ModelTrainingPanel from './ModelTrainingPanel'
