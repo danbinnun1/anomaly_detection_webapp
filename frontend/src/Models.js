@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react'
-import Model from './Model'
 
 function Models(props) {
 
