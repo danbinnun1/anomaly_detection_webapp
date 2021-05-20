@@ -34,17 +34,39 @@ class Table extends React.Component {
     }
 
     render() {
+        const table = {
+                  borderRadius: "30px",
+                  fontSize: "20px",
+                  fontWeight: "normal",
+                  border: "none",
+                  borderCollapse: "collapse",
+                  width: "100%",
+                  maxWidth: "100%",
+                  whiteSpace: "nowrap",
+                  backgroundColor: "white",
+                  borderSpacing: "10px",
+                  textAlign: "center",
+                  columnWidth: "100px"
+              };
+        const thead = {
+                   color: "#ffffff",
+                   background: "#000000",
+               };
+        const tbody = {
+                   color: "#000000",
+                   background: "ffffff",
+               };
         if (this.props.data === undefined) {
             return (null);
         }
 
         return (
             <div>
-                <table striped bordered hover size="sm">
-                    <thead>
+                <table style = {table} cellpadding="10">
+                    <thead style = {thead}>
                         <tr>{this.getHeader()}</tr>
                     </thead>
-                    <tbody>
+                    <tbody style = {tbody}>
                         {this.getRowsData()}
                     </tbody>
                 </table>
