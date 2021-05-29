@@ -1,6 +1,8 @@
 import Models from './Models'
 import TrainingFileUploadBox  from "./TrainingFileUploadBox";
-import {convertCSVToJSON} from './utils'
+import {convertCSVToJSON, splitCSV} from './utils'
+import {useState} from 'react'
+import Table from './Table';
 
 export default function ModelTrainingPanel(props) {
 
@@ -11,13 +13,21 @@ export default function ModelTrainingPanel(props) {
             </div>
 
             <div style={{ position: 'fixed', bottom: '5%', right: '2%' }} >
-                <TrainingFileUploadBox onUpload={(file, algorithm) => 
+                <TrainingFileUploadBox onUpload={(file, algorithm) =>
                 convertCSVToJSON(file)
                     .then(json => fetch('/api/model/' + algorithm, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: json
-                    }))} />
+                    }))} onUploadDetect={file => {
+                                           convertCSVToJSON(file).then(json =>
+                                               fetch('/api/anomaly?model_id=' + props.modelId, {
+                                                   method: 'POST',
+                                                   headers: { 'Content-Type': 'application/json' },
+                                                   body: json
+                                               }));
+                                           splitCSV(file).then(data => setFlightDataTable(data));
+                                       }} />
             </div>
         </div>
     )
