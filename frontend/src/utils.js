@@ -31,7 +31,7 @@ export function convertCSVToJSON(file) {
 }
 
 export function convertJSONToLines(json) {
-  if (json.length === 0) {
+  if (json === undefined || json.length === 0) {
     return [];
   }
   
