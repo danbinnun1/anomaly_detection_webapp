@@ -39,7 +39,7 @@ export default function App() {
       </div>
 
       <div style={{ position: 'fixed', bottom: '5%', right: '2%' }} >
-          <TrainingFileUploadBox onUpload={(file, algorithm) => 
+          <TrainingFileUploadBox onUploadTrain={(file, algorithm) =>
           convertCSVToJSON(file)
               .then(json => {
                 fetch('/api/model/' + algorithm, {
@@ -49,7 +49,17 @@ export default function App() {
               });
               setCurrentFlightDataJSON(json);
             })
-          } />
+          } onUploadDetect={file =>
+                    convertCSVToJSON(file).then(json => {
+                      fetch('/api/anomaly?model_id=' + currentModelId, {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify(json)
+                      }).then(respone => respone.json())
+                      .then(json => setCurrentFlightDataAnomalies(json));
+                      setCurrentFlightDataJSON(json);
+                    })
+                  } />
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ export default function TrainingFileUploadBox(props) {
     }
     const onSubmissionTrain = () => {
         if (currentFileTrain !== undefined) {
-            props.onUpload(currentFileTrain, algorithm);
+            props.onUploadTrain(currentFileTrain, algorithm);
             currentFileTrain = undefined;
         }
         else {
