@@ -2,7 +2,7 @@ import React from 'react'
 
 class Table extends React.Component {
 
-    constructor(props) {
+    constructor(props) {console.log(props.data);
         super(props);
         
         this.getHeader = this.getHeader.bind(this);
@@ -12,6 +12,10 @@ class Table extends React.Component {
     }
 
     getKeys = () => {
+        if (this.props.data.length === 0) {
+            return [];
+        }
+        
         return this.props.data[0];
     }
     getHeader = () => {
