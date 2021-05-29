@@ -1,19 +1,17 @@
 package com.anomaly_detection.server.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class AnomalyDetectionUtil {
 
     public static List<Span> getSpans(List<Integer> integers) {
-        List<Integer> sortedList = new ArrayList<>(integers);
-        Collections.sort(sortedList);
-
+        Set<Integer> set=new LinkedHashSet<>(integers);
+        integers=new ArrayList<>(set);
+        Collections.sort(integers);
         List<Span> result = new ArrayList<>();
         int lastOfSequence = -1;
         int firstOfSequence = -1;
-        for (int i : sortedList) {
+        for (int i : integers) {
             if (firstOfSequence == -1) {
                 firstOfSequence = i;
                 lastOfSequence = i;
@@ -25,10 +23,9 @@ public class AnomalyDetectionUtil {
                 lastOfSequence = i;
             }
         }
-        if (firstOfSequence != -1){
+        if (firstOfSequence!=-1){
             result.add(new Span(firstOfSequence, lastOfSequence + 1));
         }
-
         return result;
     }
 }
