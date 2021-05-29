@@ -4,50 +4,83 @@ import {Line} from 'react-chartjs-2';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-	  width: '100%',
-	  maxWidth: 360,
-	  backgroundColor: theme.palette.background.paper,
-	},
-}));
 
 export default function Graphs(props) {
 	const [currentProperty, setCurrentProperty] = useState();
-	const classes = useStyles();
 
 	if (props.data === undefined || props.data.length === 0) {
 		return '';
 	}
 
+	var data = {
+		labels: Array.from(Array(Object.values(props.data)[0].length).keys()),
+		datasets: []
+	};
+
+	if (props.anomalies === undefined || props.anomalies.length === 0) {
+		data.datasets.push({
+			label: currentProperty,
+			data: props.data[currentProperty],
+			fill: false,
+			borderColor: 'gray'
+		});
+	}
+	else if (props.data.anomalies[currentProperty].length > 0) {
+		let anomalies = [...props.data.anomalies[currentProperty]];
+
+		for (let i = 0; i < anomalies.length; ++i) {
+			for (let j = 0; j < anomalies.length - i; ++j) {
+				if (anomalies[j].end < anomalies[i].start) {
+					let temp = anomalies[i];
+					anomalies[i] = anomalies[j];
+					anomalies[j] = temp;
+				}
+			}
+		}
+
+		let anomalyPoints = [0];
+		for (const anomaly in anomalies) {
+			anomalyPoints.push(anomaly.start);
+			anomalyPoints.push(anomaly.end);
+		}
+		anomalyPoints.push(anomalies.length - 1);
+
+		let i = 0;
+		for (; i < anomalyPoints.length - 1; i += 2) {
+			data.datasets.push({
+				data: props.data[currentProperty].slice(anomalyPoints[i], anomalyPoints[i + 1]),
+				fill: false,
+				borderColor: 'gray'
+			});
+			data.datasets.push({
+				data: props.data[currentProperty].slice(anomalyPoints[i + 1], anomalyPoints[i + 2]),
+				fill: false,
+				borderColor: 'red'
+			});
+		}
+		data.datasets.push({
+			label: currentProperty,
+			data: props.data[currentProperty].slice(anomalyPoints[i], anomalyPoints[i + 1]),
+			fill: false,
+			borderColor: 'gray'
+		});
+	}
+
 	return (
 		<div>
-			<div className={classes.root}>
-				<FixedSizeList height={400} width={200} itemSize={46} itemCount={Object.keys(props.data).length}>
-					{itemProps => {
-						const { index, style } = itemProps;
-					
-						return (
-							<ListItem button style={style} key={index} onClick={() => setCurrentProperty(Object.keys(props.data)[index])}>
-								<ListItemText primary={Object.keys(props.data)[index]} />
-							</ListItem>
-						);
-					}}
-				</FixedSizeList>
-			</div>
+			<FixedSizeList height={400} width={300} itemSize={46} itemCount={Object.keys(props.data).length}>
+				{itemProps => {
+					const { index, style } = itemProps;
+				
+					return (
+						<ListItem button style={style} key={index} onClick={() => setCurrentProperty(Object.keys(props.data)[index])}>
+							<ListItemText primary={Object.keys(props.data)[index]} />
+						</ListItem>
+					);
+				}}
+			</FixedSizeList>
 
-			<Line style={{position: 'fixed', left: '15%', top: '3%'}} data={
-			{
-				labels: Array.from(Array(Object.values(props.data)[0].length).keys()),
-				datasets: [{
-					label: currentProperty,
-					data: props.data[currentProperty],
-					fill: false,
-					borderColor: '#' + Math.floor(Math.random() * 16777215).toString(16)
-				}]
-			}} />
+			<Line style={{position: 'fixed', left: '15%', top: '3%'}} data={data} />
 		</div>
 	);
 }
