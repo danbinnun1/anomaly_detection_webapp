@@ -19,13 +19,13 @@ export default function Graphs(props) {
 	const classes = useStyles();
 
 	if (props.data === undefined || props.data.length === 0) {
-		return 'Please enter a flight data file';
+		return '';
 	}
 
 	return (
 		<div>
 			<div className={classes.root}>
-				<FixedSizeList height={400} width={300} itemSize={46} itemCount={Object.keys(props.data).length}>
+				<FixedSizeList height={400} width={200} itemSize={46} itemCount={Object.keys(props.data).length}>
 					{itemProps => {
 						const { index, style } = itemProps;
 					
@@ -38,7 +38,7 @@ export default function Graphs(props) {
 				</FixedSizeList>
 			</div>
 
-			<Line data={
+			<Line style={{position: 'fixed', left: '15%', top: '3%'}} data={
 			{
 				labels: Array.from(Array(Object.values(props.data)[0].length).keys()),
 				datasets: [{

@@ -14,7 +14,7 @@ export default function App() {
 
   return (
     <div>
-      <div style={{ position: 'fixed', width: '20%', overflowY: 'scroll', top: 10, bottom: '20%', left: '83%' }}>
+      <div style={{ position: 'fixed', width: '20%', overflowY: 'scroll', top: '5%', bottom: '20%', left: '83%' }}>
           <Models onModelSelect={modelId => {
             setCurrentModelId(modelId)}}/>
       </div>
@@ -30,7 +30,10 @@ export default function App() {
         })
       } />
 
-      <Graphs data={currentFlightDataJSON} />
+      <div style={{position: 'fixed', width: '65%', top: '5%'}}>
+        <Graphs data={currentFlightDataJSON}/>
+      </div>
+      
 
       <div style={{ position: 'fixed', width: '80%', height: '30%', overflowY: 'scroll',  bottom: '0%', right: '18%' }}>
           <Table data={convertJSONToLines(currentFlightDataJSON)} />

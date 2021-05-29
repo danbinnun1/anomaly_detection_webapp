@@ -37,7 +37,7 @@ export default function Models(props) {
                     
                         return (
                             <ListItem button style={style} key={index} onClick={() => setCurrentModel(model.modelId)}>
-                                <ListItemText primary={`Model ID`} />
+                                <ListItemText primary={`Model ID: ${model.modelId}\nUpload time: ${model.uploadTime}\nStatus: ${model.status}`} />
                             </ListItem>
                         );
                     }}
@@ -46,4 +46,3 @@ export default function Models(props) {
         </div>
     )
 }
-//<ListItemText primary={`Model ID: ${model.modelId}\nUpload time: ${model.uploadTime}\nStatus: ${model.status}`} />
