@@ -9,7 +9,7 @@ export default function Table(props) {
         return props.data[0];
     }
 
-    const getHeader = (props) => {
+    const getHeader = () => {
         var keys = getKeys(props);
         return keys.map((key, index) => {
             return <th key={key}>{key.toUpperCase()}</th>
@@ -22,7 +22,7 @@ export default function Table(props) {
         })
     }
 
-    const getRowsData = (props) => {
+    const getRowsData = () => {
         return props.data.slice(1).map((row, index) => {
             return <tr key={index}>
                 {RenderRow(row)}
