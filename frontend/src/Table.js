@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Table(props) {
     const getKeys = () => {
-        if (props.data.length === 0) {
+        if (props.data === undefined || props.data.length === 0) {
             return [];
         }
         
