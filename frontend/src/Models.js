@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 
-function Models(props) {
+export default function Models(props) {
 
     const [modelsList, setModelsList] = useState([]);
     const [currentModel, setCurrentModel] = useState();
@@ -10,7 +10,7 @@ function Models(props) {
         .then(json => setModelsList(json)));
     
     const getBackgroundColor = status => (status === 'ready' ? 'green' : 'red');
-    const getBorderColor = modelId => (modelId == currentModel ? 'black' : 'white');
+    const getBorderColor = modelId => (modelId === currentModel ? 'black' : 'white');
 
     return (
         <div>
@@ -28,8 +28,10 @@ function Models(props) {
                     borderStyle: 'solid'
                 }}
                 onClick={() => {
-                    props.onModelSelect();
-                    setCurrentModel(item.modelId);
+                    if (item.status === 'ready') {
+                        props.onModelSelect();
+                        setCurrentModel(item.modelId);
+                    }
                 }}>
                     {item.uploadTime}
                         <br />
@@ -41,5 +43,3 @@ function Models(props) {
         </div>
     )
 }
-
-export default Models

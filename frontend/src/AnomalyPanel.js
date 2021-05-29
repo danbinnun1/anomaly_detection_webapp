@@ -10,12 +10,12 @@ export default function AnomalyPanel(props) {
     return (
         <div>
             <AnomalyFileUploadBox onUpload={file => {
-                /*convertCSVToJSON(file).then(json => 
+                convertCSVToJSON(file).then(json => 
                     fetch('/api/anomaly?model_id=' + props.modelId, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: json
-                    }));*/
+                    }));
                 splitCSV(file).then(data => setFlightDataTable(data));
             }} />
 

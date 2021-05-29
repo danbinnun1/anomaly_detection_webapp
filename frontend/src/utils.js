@@ -5,7 +5,7 @@ export function convertCSVToJSON(file) {
     reader.onload = () => {
       let lines = reader.result.split("\n");
       let lastLine = lines[lines.length - 1];
-      if (lastLine == '') {
+      if (lastLine === '') {
         lines.pop();
       }
       let result = {};
@@ -23,11 +23,35 @@ export function convertCSVToJSON(file) {
         }
       }
 
-      resolve(JSON.stringify(result));
+      resolve(result);
     }
 
     reader.readAsText(file);
   });
+}
+
+export function convertJSONToLines(json) {
+  if (json.length === 0) {
+    return [];
+  }
+  
+  let lines = [];
+
+  lines.push(Object.keys(json));
+
+  for (let i = 1; i <= Object.values(json)[0].length; ++i) {
+    lines[i] = [];
+  }
+
+  lines[0].forEach(key => {
+    const values = json[key];
+
+    for (let j = 1; j <= values.length; ++j) {
+      lines[j].push(values[j]);
+    }
+  });
+
+  return lines;
 }
 
 export function splitCSV(file) {
@@ -38,7 +62,7 @@ export function splitCSV(file) {
       let lines = reader.result.split("\n");
       let lastLine = lines[lines.length - 1];
 
-      if (lastLine == '') {
+      if (lastLine === '') {
         lines.pop();
       }
 

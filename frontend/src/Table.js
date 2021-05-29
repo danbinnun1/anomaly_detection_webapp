@@ -1,7 +1,11 @@
 import React from 'react'
-import {useState} from 'react'
 
-    const getKeys = (props) => {
+export default function Table(props) {
+    const getKeys = () => {
+        if (props.data.length === 0) {
+            return [];
+        }
+        
         return props.data[0];
     }
 
@@ -26,47 +30,39 @@ import {useState} from 'react'
         })
     }
 
-    export default function Table(props) {
+    const table = {
+        borderRadius: "30px",
+        fontSize: "20px",
+        fontWeight: "normal",
+        border: "none",
+        borderCollapse: "collapse",
+        width: "100%",
+        maxWidth: "100%",
+        whiteSpace: "nowrap",
+        backgroundColor: "white",
+        borderSpacing: "10px",
+        textAlign: "center",
+        columnWidth: "100px"
+    };
+    const thead = {
+        color: "#ffffff",
+        background: "#000000",
+    };
+    const tbody = {
+        color: "#000000",
+        background: "ffffff",
+    };
 
-        const [cellArray, setCellArray] = useState();
-
-        const table = {
-                  borderRadius: "30px",
-                  fontSize: "20px",
-                  fontWeight: "normal",
-                  border: "none",
-                  borderCollapse: "collapse",
-                  width: "100%",
-                  maxWidth: "100%",
-                  whiteSpace: "nowrap",
-                  backgroundColor: "white",
-                  borderSpacing: "10px",
-                  textAlign: "center",
-                  columnWidth: "100px"
-              };
-        const thead = {
-                   color: "#ffffff",
-                   background: "#000000",
-               };
-        const tbody = {
-                   color: "#000000",
-                   background: "ffffff",
-               };
-
-        if (props.data === undefined) {
-            return (null);
-        }
-
-        return (
-            <div>
-                <table style = {table} cellpadding="10">
-                    <thead style = {thead}>
-                        <tr>{getHeader()}</tr>
-                    </thead>
-                    <tbody style = {tbody}>
-                        {getRowsData()}
-                    </tbody>
-                </table>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <table style = {table} cellpadding="10">
+                <thead style = {thead}>
+                    <tr>{getHeader()}</tr>
+                </thead>
+                <tbody style = {tbody}>
+                    {getRowsData()}
+                </tbody>
+            </table>
+        </div>
+    );
+}
