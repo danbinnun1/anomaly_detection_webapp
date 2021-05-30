@@ -8,7 +8,9 @@ export default function Graphs(props) {
 	const [currentProperty, setCurrentProperty] = useState();
 
 	if (props.data === undefined || props.data.length === 0) {
-		return (null);
+		return (
+			'Please enter a file for training a model or for anomaly detection'
+		);
 	}
 
 	let data = {
@@ -66,7 +68,7 @@ export default function Graphs(props) {
 
 	return (
 		<div>
-			<FixedSizeList height={400} width={280} itemSize={46} itemCount={Object.keys(props.data).length}>
+			<FixedSizeList height={400} width={210} itemSize={80} itemCount={Object.keys(props.data).length}>
 				{itemProps => {
 					const { index, style } = itemProps;
 				
