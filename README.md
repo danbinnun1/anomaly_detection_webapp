@@ -2,9 +2,18 @@
 About the application
 ---------------------
 This is an anomaly detection web application. It contains two parts:  
-***The anomaly detection server***, which is a **Spring boot** RESTful Api server, that can train models, store them on a **MongoDB** database, and detect anomaly with these models.  
+***The anomaly detection server***, which is a **Spring boot** RESTful API server, that can train models, store them on a **MongoDB** database, and detect anomaly with these models.  
 ***The anomaly detection web application***, which is an interactive **ReactJS** web application that enables the client interact with the server and use its functionallity.  
 ![Screenshot](screenshot.png)
+
+***RESTful API description***  
+| HTTP Request | Path         | Query parameters                                          | Request body                                                                          | Response body                                                                                                 |
+|--------------|--------------|-----------------------------------------------------------|---------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| POST         | /api/model   | model_type: <string> can be only 'regression' or 'hybrid' | {train_data: {field1: [value, value, value...], field2: [value, value, value],...}}   | {model_id: <int>, upload_time: <datetime>, status: “ready” \| “pending”}                                      |
+| GET          | /api/model   | model_id: <int>                                           |                                                                                       | {model_id: <int>, upload_time: <datetime>, status: “ready” \| “pending”}                                      |
+| DELETE       | /api/model   | model_id: <int>                                           |                                                                                       |                                                                                                               |
+| GET          | /api/models  |                                                           |                                                                                       | list of {model_id: <int>, upload_time: <datetime>, status: “ready” \| “pending”}                              |
+| POST         | /api/anomaly | model_id: <int>                                           | {predict_data: {field1: [value, value, value...], field2: [value, value, value],...}} | {anomalies: {field1: [{start1, end1}, {start2, end2},...], field2: [{start1, end1}, {start2, end2},...],...}} |
 
 About the project structure
 ---------------------------
@@ -65,7 +74,7 @@ Now you can send HTTP requests to the server and update the database.
 
 Demonstration Video
 ----------------
-https://youtu.be/2U8jjl2nS5c
+https://youtu.be/fKBKNRI3XRY
 
 Uml Diagram
 ----------------
