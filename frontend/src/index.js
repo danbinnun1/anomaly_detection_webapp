@@ -1,15 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { HashRouter } from "react-router-dom";
-
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
 ReactDOM.render(
-  <HashRouter>
+  <React.StrictMode>
     <App />
-  </HashRouter>,
-  document.getElementById("root")
+  </React.StrictMode>,
+  document.getElementById('root')
 );
-
-serviceWorker.unregister();
