@@ -41,11 +41,11 @@ https://maven.apache.org/download.cgi
 ### MongoDB
 https://www.mongodb.com/try/download/community
 
-### NodeJS and npm
+### npm
 
 Linux:
 ```
-sudo apt-get install npm && sudo apt-get install nodejs
+sudo apt-get install npm
 ```
 Windows and Mac:
 https://nodejs.org/en/download/
@@ -55,8 +55,9 @@ Inside the project directory, run the commands ```cd frontend``` ```npm install`
 
 Installation and Running instructions
 -------------------------------------
-First start the **MongoDB** database server using the ```mongod``` command, or ```service mongodb start```
+First, clone the repository.  
 Next, build the **ReactJS** with the server using the commands ```cd frontend``` ```npm run build```  
+Next, start the **MongoDB** database server using the ```mongod``` command, or ```service mongodb start```
 Next, start the **Spring boot** server using the ```mvn spring-boot:run``` command inside the project main directory.  
 The server will start locally on port 8080.  
 Now you can send HTTP requests to the server and update the database.  
