@@ -72,7 +72,7 @@ export default function Table(props) {
     if (props.data===undefined){
         return null;
     }
-    if (!result || esult.length==0){
+    if (!result || result.length==0){
         setTimeout(() => {
             const data=convertJSONToLines(props.data);
             setResult(<div>
