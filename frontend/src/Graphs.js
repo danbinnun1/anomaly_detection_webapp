@@ -17,7 +17,7 @@ export default function Graphs(props) {
 		datasets: []
 	};
 
-	if (props.anomalies === undefined || props.anomalies.length === 0) {
+	if (props.anomalies === undefined || (props.anomalies !== undefined && currentProperty !== undefined && props.anomalies[currentProperty].length === 0)) {
 		data.datasets.push({
 			label: (currentProperty === undefined ? 'Please choose a property to show' : currentProperty),
 			data: props.data[currentProperty],
@@ -25,7 +25,7 @@ export default function Graphs(props) {
 			borderColor: 'gray'
 		});
 	}
-	else if (currentProperty!==undefined&& props.anomalies[currentProperty].length > 0) {
+	else if (currentProperty !== undefined && props.anomalies[currentProperty].length > 0) {
 		let anomalies = [...props.anomalies[currentProperty]];
 
 		for (let i = 0; i < anomalies.length; ++i) {
@@ -59,7 +59,7 @@ export default function Graphs(props) {
 			});
 		}
 		data.datasets.push({
-			label: (currentProperty === undefined ? currentProperty : 'Please choose a property to show'),
+			label: (currentProperty === undefined ? 'Please choose a property to show' : currentProperty),
 			data: props.data[currentProperty].slice(anomalyPoints[i], anomalyPoints[i + 1]),
 			fill: false,
 			borderColor: 'gray'

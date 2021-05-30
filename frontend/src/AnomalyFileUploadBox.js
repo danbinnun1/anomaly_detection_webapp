@@ -1,5 +1,4 @@
 import {useState} from 'react'
-import './btnStyle.css';
 
 export default function AnomalyFileUploadBox(props) {
 

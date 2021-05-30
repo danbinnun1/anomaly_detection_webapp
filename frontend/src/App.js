@@ -37,16 +37,18 @@ export default function App() {
                 });
                 setCurrentFlightDataJSON(json);
               }
-              )}
+            )}
           onUploadAnomaly={async file => {
             const json = await convertCSVToJSON(file);
-            setCurrentFlightDataJSON(json);
+            setCurrentFlightDataJSON(json);console.log(json);
+
             const response = await fetch('/api/anomaly?model_id=' + currentModelId, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(json)
             });
-            const anomalies = await response.json();
+
+            const anomalies = await response.json();console.log(anomalies.anomalies);
             setCurrentFlightDataAnomalies(anomalies.anomalies);
           }}
         />
