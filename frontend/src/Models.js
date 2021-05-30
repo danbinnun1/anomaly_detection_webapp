@@ -8,10 +8,11 @@ export default function Models(props) {
 
     const [modelsList, setModelsList] = useState([]);
     const [currentModel, setCurrentModel] = useState();
+    const [selectedIndex,setSelectedIndex]=useState(0);
     
     useEffect(() => fetch('/api/models')
         .then(respone => respone.json())
-        .then(json => setModelsList(json)), [currentModel]);
+        .then(json => setModelsList(json)), []);
 
     return (
         <div>
@@ -21,9 +22,10 @@ export default function Models(props) {
                     const model = modelsList[index];
                 
                     return (
-                        <ListItem button style={style} key={index} onClick={() => {
+                        <ListItem button selected={selectedIndex===index} style={style} key={index} onClick={() => {
                             props.onModelSelect();
                             setCurrentModel(model.modelId);
+                            setSelectedIndex(index);
                         }}>
                             <ListItemText primary={`Model ID: ${model.modelId}\nUpload time: ${model.uploadTime}\nStatus: ${model.status}`} />
                         </ListItem>
