@@ -57,23 +57,7 @@ First start the mongodb database unsing the ```mongod``` command.
 next, start the server with ```mvn spring-boot:run```. The server will run locally on port 8080.
 Now you can send http requests to the server and update the database.
 
-Finally, run npm start to start the react web page.
-
-About the plugin
-----------------
-The application supports inserting anomaly detection algorithm plugin dynamically. In the *Plugins* directory, there are two anomaly detection algorithm plugins that you can insert to the application. Those plugins are written in C++.  
-
-**To use your own plugin**, your plugin should contain a function with the signature:  
-**g(StringBuilder str, int len, string normalDataFilePath, string anomalyDataFilePath)**  
-***str*** - a string builder that will finally hold the string that represents the anomaly. This string format will be as following:  
-Every line of the string will be in the pattern:  
-*FrameNumber:FirstAnomalyProperty1-SecondAnomalyProperty1,FirstAnomalyProperty2-SecondAnomalyProperty2,...,*  
-where *FirstAnomalyProperty* and *SecondAnomalyProperty* are the indices of the corelative anomaly properties.  
-***len*** - the length of the string that the parameter ***str*** represents.  
-***normalDataFilePath*** - the path to the .csv file with the normal flight data.  
-***anomalyDataFilePath*** - the path to the .csv file with the anomaly flight data.  
-
-**Note** that the anomaly detection algorithm plugin can be written in every language that can implement the function with the signature above, like C++, C#, and Java, but we tested the application only with plugins that were written in C++.  
+Finally, run ```npm start``` to start the react web page.
 
 Demonstration Video
 ----------------
