@@ -8,7 +8,6 @@ export default function Table(props) {
         if (data === undefined || data.length === 0) {
             return [];
         }
-        
         return data[0];
     }
 
@@ -21,7 +20,6 @@ export default function Table(props) {
         width: "100%",
         maxWidth: "100%",
         whiteSpace: "nowrap",
-        backgroundColor: "white",
         borderSpacing: "10px",
         textAlign: "center",
         columnWidth: "100px"
@@ -32,7 +30,6 @@ export default function Table(props) {
         background: "#000000",
     };
     const tbody = {
-        fontSize: '20%',
         color: "#000000",
         background: "ffffff",
     };
