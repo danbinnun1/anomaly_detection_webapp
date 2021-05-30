@@ -8,8 +8,8 @@ import FileUploadPanel from './FileUploadPanel';
 export default function App() {
 
   const [currentModelId, setCurrentModelId] = useState(0);
-  const [currentFlightDataJSON, setCurrentFlightDataJSON] = useState();
-  const [currentFlightDataAnomalies, setCurrentFlightDataAnomalies] = useState();
+  const [currentDataJSON, setCurrentDataJSON] = useState();
+  const [currentDataAnomalies, setCurrentDataAnomalies] = useState();
 
   return (
     <div>
@@ -17,25 +17,25 @@ export default function App() {
           <Models onModelSelect={modelId => {
             setCurrentModelId(modelId);
 
-            if (currentFlightDataAnomalies !== undefined) {
+            if (currentDataAnomalies !== undefined) {
               fetch('/api/anomaly?model_id=' + currentModelId, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(currentFlightDataJSON)
+                body: JSON.stringify(currentDataJSON)
               })
               .then(response => response.json())
-              .then(anomalies => setCurrentFlightDataAnomalies(anomalies.anomalies));
+              .then(anomalies => setCurrentDataAnomalies(anomalies.anomalies));
             }
           }} 
-          dependency={[currentFlightDataJSON]} />
+          dependency={[currentDataJSON]} />
       </div>
 
       <div style={{ position: 'fixed', width: '62%', top: '5%' }}>
-        <Graphs data={currentFlightDataJSON} anomalies={currentFlightDataAnomalies} />
+        <Graphs data={currentDataJSON} anomalies={currentDataAnomalies} />
       </div>
 
       <div style={{ position: 'fixed', width: '80%', height: '30%', overflowY: 'scroll', bottom: '0%', right: '18%' }}>
-        <Table data={convertJSONToLines(currentFlightDataJSON)} anomalies={currentFlightDataAnomalies} />
+        <Table data={convertJSONToLines(currentDataJSON)} anomalies={currentDataAnomalies} />
       </div>
 
       <div style={{ position: 'fixed', bottom: '5%', right: '5%' }} >
@@ -48,8 +48,8 @@ export default function App() {
               body: JSON.stringify(json)
             });
 
-            setCurrentFlightDataJSON(json);
-            setCurrentFlightDataAnomalies(undefined);
+            setCurrentDataJSON(json);
+            setCurrentDataAnomalies(undefined);
           }}
           onUploadAnomaly={async file => {
             const json = await convertCSVToJSON(file);
@@ -60,8 +60,8 @@ export default function App() {
             });
             const anomalies = await response.json();
 
-            setCurrentFlightDataAnomalies(anomalies.anomalies);
-            setCurrentFlightDataJSON(json);
+            setCurrentDataAnomalies(anomalies.anomalies);
+            setCurrentDataJSON(json);
           }}
         />
       </div>
