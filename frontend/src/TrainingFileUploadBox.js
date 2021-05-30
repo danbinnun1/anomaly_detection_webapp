@@ -1,32 +1,21 @@
 import React, { useState } from 'react'
 
-
 export default function TrainingFileUploadBox(props) {
-    var [currentFileTrain, setCurrentFileTrain] = useState();
+    var [currentFile, setCurrentFile] = useState();
     var [algorithm, setAlgorithm] = useState();
-    const [currentFileDetect, setCurrentFileDetect] = useState();
-
 
     const changeHandler = (event) => {
-        setCurrentFileTrain(event.target.files[0]);
-        setCurrentFileDetect(event.target.files[0]);
+        setCurrentFile(event.target.files[0]);
     }
-    const onSubmissionTrain = () => {
-        if (currentFileTrain !== undefined) {
-            props.onUploadTrain(currentFileTrain, algorithm);
-            currentFileTrain = undefined;
+    const onSubmission = () => {
+        if (currentFile !== undefined) {
+            props.onUpload(currentFile, algorithm);
+            currentFile = undefined;
         }
         else {
             // there isnt a file to upload
         }
     }
-
-    const onSubmissionDetect = () => {
-        if (currentFileDetect !== undefined) {
-            props.onUploadDetect(currentFileDetect);
-            setCurrentFileDetect(undefined);
-        }
-    };
     
 
     return (
@@ -39,10 +28,8 @@ export default function TrainingFileUploadBox(props) {
                 <input type="file" name="file" onChange={changeHandler} />
             </div>
             <div>
-                <button onClick={onSubmissionTrain}>train</button>
-                <button onClick={onSubmissionDetect}>detect</button>
+                <button onClick={onSubmission}>train</button>
             </div>
         </div>
     )
 }
-

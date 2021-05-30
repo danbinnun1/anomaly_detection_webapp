@@ -19,7 +19,7 @@ export default function AnomalyFileUploadBox(props) {
         <div style={{position: 'fixed', top: '0%', height:'5%', color:'white', backgroundColor: 'black'}}>
             <div >
                 <input style={{fontSize: '150%'}} type="file" name="file" onChange={changeHandler} />
-                <button style={{position: 'fixed', borderColor: 'black', fontSize: '150%', background: 'white', height:'5%'}}  onClick={onSubmission}>detect</button>
+                <button style={{position: 'fixed', borderColor: 'black', fontSize: '150%', background: 'white', height:'5%'}} onClick={onSubmission}>Detect</button>
             </div>
         </div>
     )
