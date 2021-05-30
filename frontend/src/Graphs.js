@@ -71,7 +71,7 @@ export default function Graphs(props) {
 					const { index, style } = itemProps;
 				
 					return (
-						<ListItem button style={style} key={index} onClick={() => setCurrentProperty(Object.keys(props.data)[index])}>
+						<ListItem button selected={currentProperty === Object.keys(props.data)[index]} style={style} key={index} onClick={() => setCurrentProperty(Object.keys(props.data)[index])}>
 							<ListItemText primary={Object.keys(props.data)[index]} />
 						</ListItem>
 					);
