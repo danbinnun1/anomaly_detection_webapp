@@ -53,8 +53,10 @@ run the command ```npm install```
 Installation and Running instructions
 -------------------------------------
 First start the mongodb database unsing the ```mongod``` command.
+
 next, start the server with ```mvn spring-boot:run```. The server will run locally on port 8080.
 Now you can send http requests to the server and update the database.
+
 Finally, run npm start to start the react web page.
 
 About the plugin
