@@ -14,7 +14,20 @@ export default function App() {
   return (
     <div>
       <div style={{ position: 'fixed', width: '20%', overflowY: 'scroll', top: '5%', bottom: '20%', left: '83%' }}>
-          <Models onModelSelect={modelId => setCurrentModelId(modelId)} dependency={[currentFlightDataJSON]} />
+          <Models onModelSelect={modelId => {
+            setCurrentModelId(modelId);
+
+            if (currentFlightDataAnomalies !== undefined) {
+              fetch('/api/anomaly?model_id=' + currentModelId, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(currentFlightDataJSON)
+              })
+              .then(response => response.json())
+              .then(anomalies => setCurrentFlightDataAnomalies(anomalies.anomalies));
+            }
+          }} 
+          dependency={[currentFlightDataJSON]} />
       </div>
 
       <div style={{ position: 'fixed', width: '62%', top: '5%' }}>
@@ -36,6 +49,7 @@ export default function App() {
             });
 
             setCurrentFlightDataJSON(json);
+            setCurrentFlightDataAnomalies(undefined);
           }}
           onUploadAnomaly={async file => {
             const json = await convertCSVToJSON(file);
