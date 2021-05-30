@@ -22,7 +22,7 @@ Required installations
 The application is written in using the Java Spring Framework, MongoDB database and reactJS.
 
 To run the application you should have the following:  
-**Java**:
+##Java
 https://www.java.com/en/download/
 
 **Mongodb**:
