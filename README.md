@@ -4,3 +4,4 @@
 ## Installation and Running instructions
 ## Demonstration Video
 ## Uml Diagram
+![Screenshot](diag.png)  
