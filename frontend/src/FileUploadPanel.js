@@ -10,7 +10,7 @@ export default function FileUploadPanel(props) {
         var uploadBox = <TrainingFileUploadBox onUpload={props.onUploadTrain} />;
     }
     else {
-        var uploadBox = <AnomalyFileUploadBox onUpload={props.onUploadAnomaly} />
+        uploadBox = <AnomalyFileUploadBox onUpload={props.onUploadAnomaly} />
     }
 
     return (

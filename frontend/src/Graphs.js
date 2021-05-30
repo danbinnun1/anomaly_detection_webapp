@@ -4,8 +4,6 @@ import {Line} from 'react-chartjs-2';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
-import { defaults } from 'react-chartjs-2'
-defaults.global.legend.display = false;
 
 export default function Graphs(props) {
 	const [currentProperty, setCurrentProperty] = useState();

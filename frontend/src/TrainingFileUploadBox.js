@@ -24,7 +24,7 @@ export default function TrainingFileUploadBox(props) {
                 <input type="radio" value="regression" name="algorithm" />Regression
                 <input type="radio" value="hybrid" name="algorithm" />Hybrid
             </div>
-            <div class="form-group files">
+            <div className="form-group files">
                 <input type="file" name="file" onChange={changeHandler} />
             </div>
             
