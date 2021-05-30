@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { convertJSONToLines } from './utils';
 
-export default function Table(props) {
-    const [result,setResult] = useState();
+export default function Table(props) {console.log(result);
+    var [result, setResult] = useState();
     
     const getKeys = (data) => {
         if (data === undefined || data.length === 0) {
@@ -67,12 +67,14 @@ export default function Table(props) {
             </tr>
         })
     }
-    if (props.data === undefined){
+
+    if (props.data === undefined) {
         return (null);
     }
-    if (!result || result.length === 0){
+
+    if (result === undefined || result.length === 0) {
         setTimeout(() => {
-            const data=convertJSONToLines(props.data);
+            const data = convertJSONToLines(props.data);
             setResult(<div>
                 <table style = {table} cellpadding="10">
                     <thead style = {thead}>
@@ -87,7 +89,7 @@ export default function Table(props) {
 
         return <h1>Loading...</h1>
     }
-    
+
     return (
         result
     );
