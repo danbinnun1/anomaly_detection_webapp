@@ -14,7 +14,7 @@ export default function App() {
   return (
     <div>
       <div style={{ position: 'fixed', width: '20%', overflowY: 'scroll', top: '5%', bottom: '20%', left: '83%' }}>
-          <Models onModelSelect={modelId => setCurrentModelId(modelId)} setFirstModel={modelId => setCurrentModelId(modelId)}/>
+          <Models onModelSelect={modelId => setCurrentModelId(modelId)} dependency={currentFlightDataJSON} />
       </div>
 
       <div style={{position: 'fixed', width: '62%', top: '5%'}}>
