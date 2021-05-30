@@ -40,7 +40,7 @@ export default function App() {
             )}
           onUploadAnomaly={async file => {
             const json = await convertCSVToJSON(file);
-            setCurrentFlightDataJSON(json);console.log(json);
+            setCurrentFlightDataJSON(json);
 
             const response = await fetch('/api/anomaly?model_id=' + currentModelId, {
               method: 'POST',
@@ -48,7 +48,7 @@ export default function App() {
               body: JSON.stringify(json)
             });
 
-            const anomalies = await response.json();console.log(anomalies.anomalies);
+            const anomalies = await response.json();
             setCurrentFlightDataAnomalies(anomalies.anomalies);
           }}
         />
