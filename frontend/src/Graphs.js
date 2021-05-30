@@ -12,7 +12,7 @@ export default function Graphs(props) {
 		return (null);
 	}
 
-	var data = {
+	let data = {
 		labels: Array.from(Array(Object.values(props.data)[0].length).keys()),
 		datasets: []
 	};
@@ -48,8 +48,6 @@ export default function Graphs(props) {
 
 		let i = 0;
 		for (; i < anomalyPoints.length - 2; i += 2) {
-			console.log(Array(anomalyPoints[i]).fill(null).concat(props.data[currentProperty].slice(anomalyPoints[i], anomalyPoints[i + 1])));
-			console.log(Array(anomalyPoints[i + 1]).fill(null).concat(props.data[currentProperty].slice(anomalyPoints[i + 1], anomalyPoints[i + 2])));
 			data.datasets.push({
 				data: Array(anomalyPoints[i]).fill(null).concat(props.data[currentProperty].slice(anomalyPoints[i], anomalyPoints[i + 1])),
 				fill: false,
@@ -66,7 +64,7 @@ export default function Graphs(props) {
 			data: Array(anomalyPoints[i]).fill(null).concat(props.data[currentProperty].slice(anomalyPoints[i], anomalyPoints[i + 1])),
 			fill: false,
 			borderColor: 'gray'
-		});console.log(Array(anomalyPoints[i]).fill(null).concat(props.data[currentProperty].slice(anomalyPoints[i], anomalyPoints[i + 1])));
+		});
 	}
 
 	return (

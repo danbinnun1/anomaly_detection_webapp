@@ -18,7 +18,7 @@ export default function App() {
             setCurrentModelId(modelId);
 
             if (currentDataAnomalies !== undefined) {
-              fetch('/api/anomaly?model_id=' + currentModelId, {
+              fetch('/api/anomaly?model_id=' + modelId, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(currentDataJSON)
