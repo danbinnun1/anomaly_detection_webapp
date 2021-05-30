@@ -35,7 +35,7 @@ export default function App() {
       </div>
 
       <div style={{ position: 'fixed', width: '80%', height: '30%', overflowY: 'scroll', bottom: '0%', right: '18%' }}>
-        <Table data={convertJSONToLines(currentDataJSON)} anomalies={currentDataAnomalies} />
+        <Table data={currentDataJSON} anomalies={currentDataAnomalies} />
       </div>
 
       <div style={{ position: 'fixed', bottom: '5%', right: '5%' }} >

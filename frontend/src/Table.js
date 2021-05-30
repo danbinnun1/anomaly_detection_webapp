@@ -1,46 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { convertCSVToJSON, convertJSONToLines } from './utils';
+import { CircularProgress, LinearProgress } from '@material-ui/core';
+
 
 export default function Table(props) {
-    const getKeys = () => {
-        if (props.data === undefined || props.data.length === 0) {
+    const [result,setResult]=useState();
+    const getKeys = (data) => {
+        if (data === undefined || data.length === 0) {
             return [];
         }
         
-        return props.data[0];
-    }
-
-    const getHeader = () => {
-        var keys = getKeys(props);
-        return keys.map((key, index) => {
-            return <th key={key}>{key.toUpperCase()}</th>
-        })
-    }
-
-    const getColor=(row,col)=>{
-        if (props.anomalies===undefined){
-            return 'white';
-        }
-        let key=getKeys()[col];
-        for (let span of props.anomalies[key]){
-            if (row>=span.start&&row<=span.end){
-                return 'red';
-            }
-        }
-        return 'green';
-    }
-
-    const RenderRow = (row, rowIndex) => {
-        return row.map((key, index) => {
-            return <td style={{backgroundColor: getColor(rowIndex,index)}} >{key}</td>
-        })
-    }
-
-    const getRowsData = () => {
-        return props.data.slice(1).map((row, index) => {
-            return <tr key={index}>
-                {RenderRow(row,index)}
-            </tr>
-        })
+        return data[0];
     }
 
     const table = {
@@ -57,6 +27,7 @@ export default function Table(props) {
         textAlign: "center",
         columnWidth: "100px"
     };
+
     const thead = {
         color: "#ffffff",
         background: "#000000",
@@ -66,16 +37,65 @@ export default function Table(props) {
         background: "ffffff",
     };
 
+    const getHeader = (data) => {
+        var keys = getKeys(data);
+        return keys.map((key, index) => {
+            return <th key={key}>{key.toUpperCase()}</th>
+        })
+    }
+
+    const getColor=(row,col,data)=>{
+        if (props.anomalies===undefined){
+            return 'white';
+        }
+        let key=getKeys(data)[col];
+        for (let span of props.anomalies[key]){
+            if (row>=span.start&&row<=span.end){
+                return 'red';
+            }
+        }
+        return 'green';
+    }
+
+    const RenderRow = (row, rowIndex,data) => {
+        return row.map((key, index) => {
+            return <td style={{backgroundColor: getColor(rowIndex,index,data)}} >{key}</td>
+        })
+    }
+
+    const getRowsData = (data) => {
+        return data.slice(1).map((row, index) => {
+            return <tr key={index}>
+                {RenderRow(row,index,data)}
+            </tr>
+        })
+    }
+    if (props.data===undefined){
+        return null;
+    }
+    if (!result||result.length==0){
+        setTimeout(() => {
+            const data=convertJSONToLines(props.data);
+            setResult(<div>
+                <table style = {table} cellpadding="10">
+                    <thead style = {thead}>
+                        <tr>{getHeader(data)}</tr>
+                    </thead>
+                    <tbody style = {tbody}>
+                        {getRowsData(data)}
+                    </tbody>
+                </table>
+            </div>);
+        }, 1);
+        return <h1>loading...</h1>
+
+    }
+    
+
+    
+    
+
     return (
-        <div>
-            <table style = {table} cellpadding="10">
-                <thead style = {thead}>
-                    <tr>{getHeader()}</tr>
-                </thead>
-                <tbody style = {tbody}>
-                    {getRowsData()}
-                </tbody>
-            </table>
-        </div>
+        result
     );
 }
