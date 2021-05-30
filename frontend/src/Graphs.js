@@ -23,7 +23,6 @@ export default function Graphs(props) {
 		data.datasets.push({
 			label: (currentProperty === undefined ? 'Please choose a property to show' : currentProperty),
 			data: props.data[currentProperty],
-			fill: false,
 			borderColor: 'gray'
 		});
 	}
@@ -50,12 +49,13 @@ export default function Graphs(props) {
 		let i = 0;
 		for (; i < anomalyPoints.length - 2; i += 2) {
 			data.datasets.push({
+				label: currentProperty,
 				data: Array(anomalyPoints[i]).fill(null).concat(props.data[currentProperty].slice(anomalyPoints[i], anomalyPoints[i + 1])),
 				borderColor: 'gray'
 			});
 			data.datasets.push({
+				label: currentProperty,
 				data: Array(anomalyPoints[i + 1]).fill(null).concat(props.data[currentProperty].slice(anomalyPoints[i + 1], anomalyPoints[i + 2])),
-				fill: true,
 				borderColor: 'red'
 			});
 		}
