@@ -28,20 +28,23 @@ export default function Models(props) {
 
                     return (
                         <ListItem button selected={selectedIndex === index}
-                            style={Object.assign({}, style, { 'borderColor': model.status === 'ready' ? 'green' : 'red' })}
+                            style={Object.assign({}, style, {'borderColor': model.status === 'ready' ? 'green' : 'red' })}
                             key={index} onClick={() => {
                                 if (model.status === 'ready') {
                                     setSelectedIndex(index);
                                     props.onModelSelect(model.modelId);
                                 }
                             }}>
-                            <ListItemText primary={<Typography variant="h10" style={{ color: model.status === 'ready' ? 'green' : 'red' }}>
-                                Model ID: {model.modelId}
-                                    <br />
-                                Upload time: {model.uploadTime}
-                                    <br />
+                            <ListItemText primary={<Typography variant="h10" style={{fontFamily:'sans-serif', fontSize:'130%', color: model.status === 'ready' ? 'green' : 'red' }}>
                                 Status: {model.status}
-                            </Typography>} />
+                                    <br />
+                            </Typography>}
+                            secondary={
+                            <Typography style={{ color: 'black', fontFamily:'sans-serif', margin:'5%', fontSize:'80%' }}>
+                            {model.uploadTime}
+                            <br />
+                            {model.modelId}
+                            </Typography>}/>
                         </ListItem>
                     );
                 }}
