@@ -24,9 +24,9 @@ public class ModelController {
         this.modelTrainingService = modelTrainingService;
     }
 
-    @GetMapping("model/{id}")
+    @GetMapping("model")
     public @ResponseBody
-    ModelDto findById(@PathVariable String id) throws ModelNotFoundException {
+    ModelDto findById(@RequestParam("model_id") String id) throws ModelNotFoundException {
         return modelService.getById(id);
     }
 
@@ -36,15 +36,15 @@ public class ModelController {
         return modelService.getAllModels();
     }
 
-    @DeleteMapping("model/{id}")
+    @DeleteMapping("model")
     public @ResponseBody
-    ModelDto deleteById(@PathVariable String id) throws ModelNotFoundException {
+    ModelDto deleteById(@RequestParam("model_id") String id) throws ModelNotFoundException {
         return modelService.delete(id);
     }
 
-    @PostMapping("model/{model_type}")
+    @PostMapping("model")
     public @ResponseBody
-    ModelDto trainModel(@PathVariable String model_type, @RequestBody Map<String, List<Float>> data) throws TypeNotSupportedException {
+    ModelDto trainModel(@RequestParam("model_type") String model_type, @RequestBody Map<String, List<Float>> data) throws TypeNotSupportedException {
         return modelTrainingService.trainModel(data, model_type);
     }
 }

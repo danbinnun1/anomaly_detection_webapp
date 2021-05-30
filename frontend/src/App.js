@@ -18,7 +18,7 @@ export default function App() {
             setCurrentModelId(modelId);
 
             if (currentDataAnomalies !== undefined) {
-              fetch('/api/anomaly?model_id=' + modelId, {
+              fetch(`/api/anomaly?model_id=${modelId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(currentDataJSON)
@@ -42,7 +42,7 @@ export default function App() {
         <FileUploadPanel
           onUploadTrain={async (file, algorithm) => {
             const json = await convertCSVToJSON(file);
-            fetch('/api/model/' + algorithm, {
+            fetch(`/api/model?model_type=${algorithm}`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(json)
@@ -53,7 +53,7 @@ export default function App() {
           }}
           onUploadAnomaly={async file => {
             const json = await convertCSVToJSON(file);
-            const response = await fetch('/api/anomaly?model_id=' + currentModelId, {
+            const response = await fetch(`/api/anomaly?model_id=${currentModelId}`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(json)
