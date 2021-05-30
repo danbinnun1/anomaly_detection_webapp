@@ -3,7 +3,7 @@ package com.anomaly_detection.server.service;
 import com.anomaly_detection.server.dto.ModelDto;
 import com.anomaly_detection.server.dto.ModelMapper;
 import com.anomaly_detection.server.exceptions.TypeNotSupportedException;
-import com.anomaly_detection.server.model.Data;
+import com.anomaly_detection.server.model.TrainingData;
 import com.anomaly_detection.server.model.Model;
 import com.anomaly_detection.server.repository.DataRepository;
 import com.anomaly_detection.server.repository.ModelRepository;
@@ -40,7 +40,7 @@ public class ConcreteModelTrainingService implements ModelTrainingService {
         var model = new Model();
         modelRepository.save(model);
 
-        var flightData = new Data().setModel(model).setFlightData(data).setModelType(type);
+        var flightData = new TrainingData().setModel(model).setFlightData(data).setModelType(type);
         dataRepository.save(flightData);
 
         executorService.execute(() -> {

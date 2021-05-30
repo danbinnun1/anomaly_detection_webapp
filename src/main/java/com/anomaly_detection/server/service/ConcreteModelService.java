@@ -18,7 +18,7 @@ public class ConcreteModelService implements ModelService {
     public ModelDto getById(String integer) throws ModelNotFoundException {
         var model = modelRepository.findById(integer);
 
-        if (model.isEmpty()){
+        if (model.isEmpty()) {
             throw new ModelNotFoundException();
         }
         
@@ -38,7 +38,7 @@ public class ConcreteModelService implements ModelService {
     public ModelDto delete(String modelId) throws ModelNotFoundException {
         var optionalModel = modelRepository.findById(modelId);
 
-        if (optionalModel.isEmpty()){
+        if (optionalModel.isEmpty()) {
             throw new ModelNotFoundException();
         }
 

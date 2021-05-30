@@ -12,7 +12,7 @@ import java.util.Map;
 @lombok.Data
 @Accessors(chain = true)
 @Document
-public class Data {
+public class TrainingData {
     @Id
     public String id;
     @DBRef
