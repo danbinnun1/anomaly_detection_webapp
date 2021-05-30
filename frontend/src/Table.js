@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { convertJSONToLines } from './utils';
 
-
 export default function Table(props) {
-    const [result,setResult]=useState();
+    const [result,setResult] = useState();
+    
     const getKeys = (data) => {
         if (data === undefined || data.length === 0) {
             return [];
@@ -72,7 +72,7 @@ export default function Table(props) {
     if (props.data===undefined){
         return null;
     }
-    if (!result||result.length==0){
+    if (!result || esult.length==0){
         setTimeout(() => {
             const data=convertJSONToLines(props.data);
             setResult(<div>
@@ -86,14 +86,10 @@ export default function Table(props) {
                 </table>
             </div>);
         }, 1);
-        return <h1>loading...</h1>
 
+        return <h1>Loading...</h1>
     }
     
-
-    
-    
-
     return (
         result
     );
