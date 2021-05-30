@@ -29,6 +29,7 @@ https://www.java.com/en/download/
 https://www.mongodb.com/try/download/community
 
 **Maven**:
+
 Linux:
 ```
 sudo apt-get install maven
@@ -37,6 +38,7 @@ Windows and Mac:
 https://maven.apache.org/download.cgi
 
 **NodeJS and npm**:
+
 Linux:
 ```
 sudo apt-get install npm && sudo apt-get install nodejs
