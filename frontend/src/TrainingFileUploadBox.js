@@ -21,15 +21,14 @@ export default function TrainingFileUploadBox(props) {
     return (
         <div>
             <div onChange={event => setAlgorithm(event.target.value)}>
-                <input type="radio" value="regression" name="algorithm" />regression
-                <input type="radio" value="hybrid" name="algorithm" />hybrid
+                <input type="radio" value="regression" name="algorithm" />Regression
+                <input type="radio" value="hybrid" name="algorithm" />Hybrid
             </div>
             <div class="form-group files">
                 <input type="file" name="file" onChange={changeHandler} />
             </div>
-            <div>
-                <button onClick={onSubmission}>train</button>
-            </div>
+            
+            <button onClick={onSubmission}>Train model</button>
         </div>
     )
 }
