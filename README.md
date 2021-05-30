@@ -25,10 +25,10 @@ To run the application you should have the following:
 ### Java
 https://www.java.com/en/download/
 
-**Mongodb**:
+### Mongodb
 https://www.mongodb.com/try/download/community
 
-**Maven**:
+### Maven:
 
 Linux:
 ```
@@ -37,7 +37,7 @@ sudo apt-get install maven
 Windows and Mac:
 https://maven.apache.org/download.cgi
 
-**NodeJS and npm**:
+### NodeJS and npm
 
 Linux:
 ```
