@@ -12,13 +12,10 @@ export default function Models(props) {
     useEffect(() => fetch('/api/models')
         .then(respone => respone.json())
         .then(json => setModelsList(json)), [currentModel]);
-    
-    const getBackgroundColor = status => (status === 'ready' ? 'green' : 'red');
-    const getBorderColor = modelId => (modelId === currentModel ? 'black' : 'white');
 
     return (
         <div>
-            <FixedSizeList height={500} width={300} itemSize={130} itemCount={modelsList.length}>
+            <FixedSizeList height={500} width={250} itemSize={130} itemCount={modelsList.length}>
                 {itemProps => {
                     const { index, style } = itemProps;
                     const model = modelsList[index];
