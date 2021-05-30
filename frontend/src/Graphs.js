@@ -25,8 +25,8 @@ export default function Graphs(props) {
 			borderColor: 'gray'
 		});
 	}
-	else if (props.data.anomalies[currentProperty].length > 0) {
-		let anomalies = [...props.data.anomalies[currentProperty]];
+	else if (currentProperty!==undefined&& props.anomalies[currentProperty].length > 0) {
+		let anomalies = [...props.anomalies[currentProperty]];
 
 		for (let i = 0; i < anomalies.length; ++i) {
 			for (let j = 0; j < anomalies.length - i; ++j) {
