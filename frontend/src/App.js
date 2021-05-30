@@ -17,7 +17,7 @@ export default function App() {
           <Models onModelSelect={modelId => setCurrentModelId(modelId)}/>
       </div>
 
-      <div style={{position: 'fixed', width: '65%', top: '5%'}}>
+      <div style={{position: 'fixed', width: '62%', top: '5%'}}>
         <Graphs data={currentFlightDataJSON} anomalies={currentFlightDataAnomalies} />
       </div>
 
@@ -25,7 +25,7 @@ export default function App() {
           <Table data={convertJSONToLines(currentFlightDataJSON)} anomalies={currentFlightDataAnomalies} />
       </div>
 
-      <div style={{ position: 'fixed', bottom: '5%', right: '2%' }} >
+      <div style={{ position: 'fixed', bottom: '5%', right: '5%' }} >
         <FileUploadPanel 
           onUploadTrain={(file, algorithm) =>
             convertCSVToJSON(file)

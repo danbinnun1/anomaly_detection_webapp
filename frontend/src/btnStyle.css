@@ -1,0 +1,33 @@
+.inputfile-box {
+    position: relative;
+    margin-bottom: 50%;
+  }
+  
+  .inputfile {
+    display: none;
+  }
+  
+  .container {
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .file-box {
+    display: inline-block;
+    width: 200%;
+    border: 1px solid;
+    padding: 5px 0px 5px 5px;
+    box-sizing: border-box;
+    height: calc(2rem - 2px);
+    left: 20%
+  }
+  
+  .file-button {
+    background: rgb(0, 0, 0);
+    color: white;
+    padding: 5px;
+    position: absolute;
+    border: 1px solid;
+    top: 0px;
+    right: 100%;
+  }

@@ -68,7 +68,7 @@ export default function Graphs(props) {
 
 	return (
 		<div>
-			<FixedSizeList height={400} width={300} itemSize={46} itemCount={Object.keys(props.data).length}>
+			<FixedSizeList height={400} width={280} itemSize={46} itemCount={Object.keys(props.data).length}>
 				{itemProps => {
 					const { index, style } = itemProps;
 				
@@ -80,7 +80,7 @@ export default function Graphs(props) {
 				}}
 			</FixedSizeList>
 
-			<Line style={{position: 'fixed', left: '15%', top: '3%'}} data={data} />
+			<Line style={{position: 'fixed', left: '20%', top: '3%'}} data={data} />
 		</div>
 	);
 }
