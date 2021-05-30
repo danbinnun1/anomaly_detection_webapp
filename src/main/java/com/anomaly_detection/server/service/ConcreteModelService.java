@@ -12,7 +12,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class MyModelService implements ModelService {
+public class ConcreteModelService implements ModelService {
     private final ModelRepository modelRepository;
 
     public ModelDto getById(String integer) throws ModelNotFoundException {

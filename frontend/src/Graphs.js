@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import {Line} from 'react-chartjs-2';
-
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
@@ -50,19 +49,17 @@ export default function Graphs(props) {
 		for (; i < anomalyPoints.length - 2; i += 2) {
 			data.datasets.push({
 				data: Array(anomalyPoints[i]).fill(null).concat(props.data[currentProperty].slice(anomalyPoints[i], anomalyPoints[i + 1])),
-				fill: false,
 				borderColor: 'gray'
 			});
 			data.datasets.push({
 				data: Array(anomalyPoints[i + 1]).fill(null).concat(props.data[currentProperty].slice(anomalyPoints[i + 1], anomalyPoints[i + 2])),
-				fill: false,
+				fill: true,
 				borderColor: 'red'
 			});
 		}
 		data.datasets.push({
 			label: (currentProperty === undefined ? 'Please choose a property to show' : currentProperty),
 			data: Array(anomalyPoints[i]).fill(null).concat(props.data[currentProperty].slice(anomalyPoints[i], anomalyPoints[i + 1])),
-			fill: false,
 			borderColor: 'gray'
 		});
 	}

@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 
 @RequiredArgsConstructor
 @Service
-public class MyModelTrainingService implements ModelTrainingService {
+public class ConcreteModelTrainingService implements ModelTrainingService {
     private final ModelRepository modelRepository;
     private final FlightDataRepository flightDataRepository;
 

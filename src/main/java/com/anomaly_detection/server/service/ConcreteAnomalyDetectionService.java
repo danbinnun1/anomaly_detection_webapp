@@ -14,7 +14,7 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @Service
-public class MyAnomalyDetectionService implements AnomalyDetectionService {
+public class ConcreteAnomalyDetectionService implements AnomalyDetectionService {
     private final ModelRepository modelRepository;
 
     public Anomaly detect(Map<String, List<Float>> data, String modelId) throws InvalidDataException, TrainingNotFinishedException, ModelNotFoundException {

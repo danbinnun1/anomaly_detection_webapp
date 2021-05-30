@@ -5,16 +5,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
 
 export default function Models(props) {
-
     const [modelsList, setModelsList] = useState([]);
-    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [selectedIndex, setSelectedIndex] = useState();
     
     useEffect(() => fetch('/api/models')
         .then(response => response.json())
         .then(json => {
             setModelsList(json);
 
-            if (json.length > 0) {
+            if (selectedIndex  === undefined && json.length > 0) {
                 setSelectedIndex(0);
                 props.onModelSelect(json[0].modelId);
             }
