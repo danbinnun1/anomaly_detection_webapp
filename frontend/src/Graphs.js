@@ -9,7 +9,7 @@ export default function Graphs(props) {
 	const [currentProperty, setCurrentProperty] = useState();
 
 	if (props.data === undefined || props.data.length === 0) {
-		return '';
+		return (null);
 	}
 
 	var data = {
@@ -19,7 +19,7 @@ export default function Graphs(props) {
 
 	if (props.anomalies === undefined || props.anomalies.length === 0) {
 		data.datasets.push({
-			label: currentProperty,
+			label: (currentProperty === undefined ? 'Please choose a property to show' : currentProperty),
 			data: props.data[currentProperty],
 			fill: false,
 			borderColor: 'gray'
@@ -59,7 +59,7 @@ export default function Graphs(props) {
 			});
 		}
 		data.datasets.push({
-			label: currentProperty,
+			label: (currentProperty === undefined ? currentProperty : 'Please choose a property to show'),
 			data: props.data[currentProperty].slice(anomalyPoints[i], anomalyPoints[i + 1]),
 			fill: false,
 			borderColor: 'gray'
