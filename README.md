@@ -4,6 +4,7 @@ About the application
 This is an anomaly detection web application. It contains two parts:  
 ***The anomaly detection server***, which is a **Spring boot** RESTful Api server, that can train models, store them on a **MongoDB** database, and detect anomaly with these models.  
 ***The anomaly detection web application***, which is an interactive **ReactJS** web application that enables the client interact with the server and use its functionallity.  
+![Screenshot](screenshot.png)
 
 About the project structure
 ---------------------------
