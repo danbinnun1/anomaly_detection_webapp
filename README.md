@@ -24,8 +24,10 @@ The application is written in using the Java Spring Framework, MongoDB database 
 To run the application you should have the following:  
 **Java**:
 https://www.java.com/en/download/
+
 **Mongodb**:
 https://www.mongodb.com/try/download/community
+
 **Maven**:
 Linux:
 ```
@@ -33,6 +35,7 @@ sudo apt-get install maven
 ```
 Windows and Mac:
 https://maven.apache.org/download.cgi
+
 **NodeJS and npm**:
 Linux:
 ```
