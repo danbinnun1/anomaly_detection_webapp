@@ -1,4 +1,4 @@
-import {useState, useCallback} from 'react'
+import {useState} from 'react'
 import './btnStyle.css';
 
 export default function AnomalyFileUploadBox(props) {
@@ -7,7 +7,6 @@ export default function AnomalyFileUploadBox(props) {
     
     const changeHandler = event => {
         setCurrentFile(event.target.files[0]);
-        document.getElementById("file-name").innerHTML = event.target.files[0].name;
     };
 
     const onSubmission = () => {

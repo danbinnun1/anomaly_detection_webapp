@@ -49,7 +49,7 @@ export default function App() {
                 .then(respone => {
                   respone.json()
                 })
-                .then(json => setCurrentFlightDataAnomalies(json));
+                .then(json => {console.log(json);setCurrentFlightDataAnomalies(json)});
               setCurrentFlightDataJSON(json);
             }
           )}
