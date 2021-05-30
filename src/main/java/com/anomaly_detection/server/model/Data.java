@@ -9,10 +9,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 import java.util.Map;
 
-@Data
+@lombok.Data
 @Accessors(chain = true)
 @Document
-public class FlightData {
+public class Data {
     @Id
     public String id;
     @DBRef
