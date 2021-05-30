@@ -51,16 +51,12 @@ Windows and Mac:
 https://nodejs.org/en/download/
 
 ### NodeJS packages
-Inside the project directory, run the commands:   
-```cd frontend```  
-```npm install``` 
+Inside the project directory, run the commands ```cd frontend``` ```npm install``` 
 
 Installation and Running instructions
 -------------------------------------
 First start the **MongoDB** database server using the ```mongod``` command, or ```service mongodb start```
-Next, build the **ReactJS** with the server using the commands:  
-```cd frontend```  
-```npm run build```  
+Next, build the **ReactJS** with the server using the commands ```cd frontend``` ```npm run build```  
 Next, start the **Spring boot** server using the ```mvn spring-boot:run``` command inside the project main directory.  
 The server will start locally on port 8080.  
 Now you can send HTTP requests to the server and update the database.  
