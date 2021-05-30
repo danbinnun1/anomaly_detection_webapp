@@ -32,6 +32,7 @@ export default function Table(props) {
         background: "#000000",
     };
     const tbody = {
+        fontSize: '20%',
         color: "#000000",
         background: "ffffff",
     };

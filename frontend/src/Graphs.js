@@ -3,13 +3,20 @@ import {Line} from 'react-chartjs-2';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
+import plane from './images/icon.png';
 
 export default function Graphs(props) {
 	const [currentProperty, setCurrentProperty] = useState();
 
 	if (props.data === undefined || props.data.length === 0) {
 		return (
-			'Please enter a file for training a model or for anomaly detection'
+			<div>
+				<img style={{position:'absolute', left:'55%', marginTop: '8%'}} src={plane} alt="Flight Anomaly Detector"></img>
+				<div style={{position:'absolute', background:'black', width:'60%', fontSize:'120%', color: 'white', left:'35%', padding:'5%', marginTop:'40%', fontFamily: 'sans-serif'}}>
+					<br/>
+					Please enter a file for training a model or for anomaly detection
+				</div>	
+			</div>	
 		);
 	}
 
