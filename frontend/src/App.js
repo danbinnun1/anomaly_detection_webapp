@@ -7,14 +7,14 @@ import FileUploadPanel from './FileUploadPanel';
 
 export default function App() {
 
-  const [currentModelId, setCurrentModelId] = useState();
+  const [currentModelId, setCurrentModelId] = useState(0);
   const [currentFlightDataJSON, setCurrentFlightDataJSON] = useState();
   const [currentFlightDataAnomalies, setCurrentFlightDataAnomalies] = useState();
 
   return (
     <div>
       <div style={{ position: 'fixed', width: '20%', overflowY: 'scroll', top: '5%', bottom: '20%', left: '83%' }}>
-          <Models onModelSelect={modelId => setCurrentModelId(modelId)}/>
+          <Models onModelSelect={modelId => setCurrentModelId(modelId)} setFirstModel={modelId => setCurrentModelId(modelId)}/>
       </div>
 
       <div style={{position: 'fixed', width: '62%', top: '5%'}}>
@@ -46,7 +46,9 @@ export default function App() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(json)
                 })
-                .then(respone => respone.json())
+                .then(respone => {
+                  respone.json()
+                })
                 .then(json => setCurrentFlightDataAnomalies(json));
               setCurrentFlightDataJSON(json);
             }

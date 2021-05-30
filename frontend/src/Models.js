@@ -12,9 +12,12 @@ export default function Models(props) {
     const [currentModel, setCurrentModel] = useState();
     const [selectedIndex, setSelectedIndex] = useState(0);
 
-    useEffect(() => fetch('/api/models')
-        .then(respone => respone.json())
-        .then(json => setModelsList(json)), []);
+    useEffect(async () => {
+        const response=await fetch('/api/models');
+        const json= await response.json();
+        setModelsList(json);
+        props.setFirstModel(json[0].modelId)
+    }, []);
 
     return (
         <div>
@@ -27,11 +30,11 @@ export default function Models(props) {
                         <ListItem button selected={selectedIndex === index}
                             style={Object.assign({}, style, { 'borderColor': model.status === 'ready' ? 'green' : 'red' })}
                             key={index} onClick={() => {
-                                props.onModelSelect();
+                                props.onModelSelect(model.modelId);
                                 setCurrentModel(model.modelId);
                                 setSelectedIndex(index);
                             }}>
-                            <ListItemText primary={<Typography variant="h10" style={{ color: model.status === 'ready' ? 'green' : 'red' }}>Model ID: {model.modelId}<br/>Upload time: {model.uploadTime}<br/>Status: {model.status}</Typography>} />
+                            <ListItemText primary={<Typography variant="h10" style={{ color: model.status === 'ready' ? 'green' : 'red' }}>Model ID: {model.modelId}<br />Upload time: {model.uploadTime}<br />Status: {model.status}</Typography>} />
                         </ListItem>
                     );
                 }}
