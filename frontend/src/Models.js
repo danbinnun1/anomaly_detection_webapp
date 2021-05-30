@@ -41,9 +41,9 @@ export default function Models(props) {
                             </Typography>}
                             secondary={
                             <Typography style={{ color: 'black', fontFamily:'sans-serif', margin:'5%', fontSize:'80%' }}>
-                            {model.uploadTime}
-                            <br />
-                            {model.modelId}
+                            Upload Time:
+                            <br/>
+                             {model.uploadTime}
                             </Typography>}/>
                         </ListItem>
                     );
