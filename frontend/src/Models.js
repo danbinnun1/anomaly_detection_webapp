@@ -1,4 +1,6 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
+import Typography from '@material-ui/core/Typography'
+
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -8,8 +10,8 @@ export default function Models(props) {
 
     const [modelsList, setModelsList] = useState([]);
     const [currentModel, setCurrentModel] = useState();
-    const [selectedIndex,setSelectedIndex]=useState(0);
-    
+    const [selectedIndex, setSelectedIndex] = useState(0);
+
     useEffect(() => fetch('/api/models')
         .then(respone => respone.json())
         .then(json => setModelsList(json)), []);
@@ -18,16 +20,18 @@ export default function Models(props) {
         <div>
             <FixedSizeList height={500} width={250} itemSize={130} itemCount={modelsList.length}>
                 {itemProps => {
-                    const { index, style } = itemProps;
+                    let { index, style } = itemProps;
                     const model = modelsList[index];
-                
+
                     return (
-                        <ListItem button selected={selectedIndex===index} style={style} key={index} onClick={() => {
-                            props.onModelSelect();
-                            setCurrentModel(model.modelId);
-                            setSelectedIndex(index);
-                        }}>
-                            <ListItemText primary={`Model ID: ${model.modelId}\nUpload time: ${model.uploadTime}\nStatus: ${model.status}`} />
+                        <ListItem button selected={selectedIndex === index}
+                            style={Object.assign({}, style, { 'borderColor': model.status === 'ready' ? 'green' : 'red' })}
+                            key={index} onClick={() => {
+                                props.onModelSelect();
+                                setCurrentModel(model.modelId);
+                                setSelectedIndex(index);
+                            }}>
+                            <ListItemText primary={<Typography variant="h10" style={{ color: model.status === 'ready' ? 'green' : 'red' }}>Model ID: {model.modelId}<br/>Upload time: {model.uploadTime}<br/>Status: {model.status}</Typography>} />
                         </ListItem>
                     );
                 }}
