@@ -11,7 +11,14 @@ export default function Models(props) {
     
     useEffect(() => fetch('/api/models')
         .then(response => response.json())
-        .then(json => setModelsList(json)), [...props.dependency]);
+        .then(json => {
+            setModelsList(json);
+
+            if (json.length > 0) {
+                setSelectedIndex(0);
+                props.onModelSelect(json[0].modelId);
+            }
+        }), [...props.dependency]);
 
     return (
         <div>
@@ -25,8 +32,8 @@ export default function Models(props) {
                             style={Object.assign({}, style, { 'borderColor': model.status === 'ready' ? 'green' : 'red' })}
                             key={index} onClick={() => {
                                 if (model.status === 'ready') {
-                                    props.onModelSelect(model.modelId);
                                     setSelectedIndex(index);
+                                    props.onModelSelect(model.modelId);
                                 }
                             }}>
                             <ListItemText primary={<Typography variant="h10" style={{ color: model.status === 'ready' ? 'green' : 'red' }}>

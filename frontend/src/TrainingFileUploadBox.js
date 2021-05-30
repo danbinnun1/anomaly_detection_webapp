@@ -16,7 +16,40 @@ export default function TrainingFileUploadBox(props) {
             // there isnt a file to upload
         }
     }
-    
+
+    const buttonDesign = {
+         display: "block",
+         cursor: "pointer",
+         outline: "none",
+         border: "none",
+         backgroundColor: "black",
+         width: "180px",
+         height: "23px",
+         borderRadius: "10px",
+         fontSize: "1rem",
+         fontWeight: "200",
+         color: "white",
+         backgroundSize: "100% 100%",
+         //boxShadow: "0 0 0 7px var(--light) inset",
+         marginBottom: "5px"
+    }
+
+    const fileUploadDesign = {
+         display: "block",
+         cursor: "pointer",
+         outline: "none",
+         border: "none",
+         backgroundColor: "black",
+         width: "180px",
+         height: "23px",
+         borderRadius: "10px",
+         fontSize: "0.84rem",
+         fontWeight: "200",
+         color: "white",
+         backgroundSize: "100% 100%",
+         //boxShadow: "0 0 0 7px var(--light) inset",
+         marginBottom: "5px"
+    }
 
     return (
         <div>
@@ -24,11 +57,11 @@ export default function TrainingFileUploadBox(props) {
                 <input type="radio" value="regression" name="algorithm" />Regression
                 <input type="radio" value="hybrid" name="algorithm" />Hybrid
             </div>
-            <div className="form-group files">
-                <input type="file" name="file" onChange={changeHandler} />
+            <div style={buttonDesign} className="form-group files">
+                <input style={fileUploadDesign} type="file" name="file" onChange={changeHandler} />
             </div>
             
-            <button onClick={onSubmission}>Train model</button>
+            <button style={buttonDesign} onClick={onSubmission}>Train model</button>
         </div>
     )
 }
