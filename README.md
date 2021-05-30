@@ -28,7 +28,7 @@ https://www.java.com/en/download/
 ### Mongodb
 https://www.mongodb.com/try/download/community
 
-### Maven:
+### Maven
 
 Linux:
 ```
@@ -46,15 +46,16 @@ sudo apt-get install npm && sudo apt-get install nodejs
 Windows and Mac:
 https://nodejs.org/en/download/
 
+### NodeJS packages
+run the command ```npm install```
+
+
 Installation and Running instructions
 -------------------------------------
-There are **many ways** to run the application. The easiest is to run it from **Visual Studio**, but it is important to know that there are **other options**, like compiling  
-the code manualy and run in a *.NETCORE 3.0* environment. Notice that the *OxyPlot* plugin is requird to run the applicaiton.  
-  
-*How to run the application in Visual Studio ?*  
-**First**, install the Visual Studio and **clone this repository**.  
-**Second**, install the *OxyPlot* plugin. In Visual Studio: **Project -> Manage NuGet Packages -> Browse -> Search "OxyPlot Wpf" -> Install OxyPlot.Wpf**  
-**Then**, run the application by pressing the green run button in the Visual Studio. The *Opening window* will be opened, and the instructions will be showed there. Then open the *FlightGear* application and do the instructions which are showed in our application.  
+First start the mongodb database unsing the ```mongod``` command.
+next, start the server with ```mvn spring-boot:run```. The server will run locally on port 8080.
+Now you can send http requests to the server and update the database.
+Finally, run npm start to start the react web page.
 
 About the plugin
 ----------------
