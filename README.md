@@ -57,12 +57,13 @@ Inside the project directory, run the commands:
 
 Installation and Running instructions
 -------------------------------------
-First start the **MongoDB** database using the ```mongod``` command, or ```service mongodb start```  
-Next, start the server using the ```mvn spring-boot:run``` command inside the project main directory.  
+First start the **MongoDB** database server using the ```mongod``` command, or ```service mongodb start```
+Next, build the **ReactJS** with the server using the commands:  
+```cd frontend```  
+```npm run build```  
+Next, start the **Spring boot** server using the ```mvn spring-boot:run``` command inside the project main directory.  
 The server will start locally on port 8080.  
-Now you can send HTTP requests to the server and update the database.
-
-Finally, run ```npm start``` to start the react web page.  
+Now you can send HTTP requests to the server and update the database.  
 
 Demonstration Video
 ----------------
