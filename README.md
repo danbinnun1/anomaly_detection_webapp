@@ -19,11 +19,27 @@ Those classes implement interfaces accordingly.
 
 Required installations
 ----------------------
-The application is written in **WPF .NETCORE 3.0**.  
+The application is written in using the Java Spring Framework, MongoDB database and reactJS.
+
 To run the application you should have the following:  
-**.NETCORE 3.0 environment**. The *.NETCORE* version should be at least 3.0, because this is the first version which supports *WPF*.  
-**OxyPlot plugin for WPF**. *OxyPlot* plugin is used to produce and show the graphs of the flight data.  
-**FlightGear application**. The *FlightGear* application is used to show a video of the flight. We recommand to use the last version of the *FlightGear*, which can be downloaded in the link **www.flightgear.org**.  
+**Java**:
+https://www.java.com/en/download/
+**Mongodb**:
+https://www.mongodb.com/try/download/community
+**Maven**:
+Linux:
+```
+sudo apt-get install maven
+```
+Windows and Mac:
+https://maven.apache.org/download.cgi
+**NodeJS and npm**:
+Linux:
+```
+sudo apt-get install npm && sudo apt-get install nodejs
+```
+Windows and Mac:
+https://nodejs.org/en/download/
 
 Installation and Running instructions
 -------------------------------------
