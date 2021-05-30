@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { convertCSVToJSON, convertJSONToLines } from './utils';
 import Graphs from './Graphs';
 import Table from './Table';
 import Models from './Models';
 import FileUploadPanel from './FileUploadPanel';
+import { convertCSVToJSON } from './utils';
 
 export default function App() {
 

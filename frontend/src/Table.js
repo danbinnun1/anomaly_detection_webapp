@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { convertCSVToJSON, convertJSONToLines } from './utils';
-import { CircularProgress, LinearProgress } from '@material-ui/core';
+import { convertJSONToLines } from './utils';
 
 
 export default function Table(props) {
