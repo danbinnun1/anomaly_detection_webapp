@@ -16,16 +16,29 @@ export default function Table(props) {
         })
     }
 
-    const RenderRow = (row) => {
+    const getColor=(row,col)=>{
+        if (props.anomalies===undefined){
+            return 'white';
+        }
+        let key=getKeys()[col];
+        for (let span of props.anomalies[key]){
+            if (row>=span.start&&row<=span.end){
+                return 'red';
+            }
+        }
+        return 'green';
+    }
+
+    const RenderRow = (row, rowIndex) => {
         return row.map((key, index) => {
-            return <td style={{backgroundColor: "red"}} >{key}</td>
+            return <td style={{backgroundColor: getColor(rowIndex,index)}} >{key}</td>
         })
     }
 
     const getRowsData = () => {
         return props.data.slice(1).map((row, index) => {
             return <tr key={index}>
-                {RenderRow(row)}
+                {RenderRow(row,index)}
             </tr>
         })
     }
