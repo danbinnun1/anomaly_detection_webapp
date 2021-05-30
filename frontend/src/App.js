@@ -27,29 +27,27 @@ export default function App() {
 
       <div style={{ position: 'fixed', bottom: '5%', right: '5%' }} >
         <FileUploadPanel
-          onUploadTrain={(file, algorithm) =>
-            convertCSVToJSON(file)
-              .then(json => {
-                fetch('/api/model/' + algorithm, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(json)
-                });
-                setCurrentFlightDataJSON(json);
-              }
-            )}
-          onUploadAnomaly={async file => {
+          onUploadTrain={async (file, algorithm) => {
             const json = await convertCSVToJSON(file);
-            setCurrentFlightDataJSON(json);
-
-            const response = await fetch('/api/anomaly?model_id=' + currentModelId, {
+            fetch('/api/model/' + algorithm, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(json)
             });
 
+            setCurrentFlightDataJSON(json);
+          }}
+          onUploadAnomaly={async file => {
+            const json = await convertCSVToJSON(file);
+            const response = await fetch('/api/anomaly?model_id=' + currentModelId, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(json)
+            });
             const anomalies = await response.json();
+
             setCurrentFlightDataAnomalies(anomalies.anomalies);
+            setCurrentFlightDataJSON(json);
           }}
         />
       </div>
